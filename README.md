@@ -6,4 +6,4 @@
 - 🦜 Estoy en Twitter https://twitter.com/icalderond
 - 📫 Aqui hay forma de contactarme: https://www.linkedin.com/in/icalderond/
 
-![James's github stats](https://github-readme-stats.vercel.app/api?username=icalderond&show_icons=true)
+![Israel Calderon's github stats](https://github-readme-stats.vercel.app/api?username=icalderond&show_icons=true)
