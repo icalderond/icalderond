@@ -1,0 +1,181 @@
+/* Fibonacci Sequence Styles */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    border-radius: 12px 12px 0 0;
+    padding: 1.5rem;
+}
+
+.card-header h2,
+.card-header h5 {
+    font-weight: 600;
+}
+
+.card-header h2 {
+    font-size: 1.8rem;
+}
+
+/* Input and Controls */
+.input-group {
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.form-control {
+    padding: 0.75rem 1rem;
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.form-range {
+    height: 8px;
+    border-radius: 4px;
+}
+
+.form-range::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #0d6efd;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.form-range::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #0d6efd;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Buttons */
+.btn {
+    padding: 0.75rem 1.25rem;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 4px 8px rgba(13, 110, 253, 0.3);
+}
+
+.btn-warning:hover {
+    box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
+}
+
+/* Canvas */
+.fibonacci-canvas {
+    max-width: 100%;
+    height: auto;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    background: white;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table */
+.table {
+    margin-bottom: 0;
+}
+
+.table thead th {
+    font-weight: 600;
+    vertical-align: middle;
+    border-top: none;
+}
+
+.table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.table tbody td {
+    vertical-align: middle;
+    padding: 1rem;
+    font-size: 0.95rem;
+}
+
+.table-light {
+    background-color: #f8f9fa !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .card-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .d-sm-flex {
+        flex-direction: column;
+    }
+
+    .d-sm-flex .btn {
+        width: 100%;
+    }
+
+    .fibonacci-canvas {
+        max-height: 500px;
+    }
+
+    .table-responsive {
+        font-size: 0.85rem;
+    }
+
+    .table tbody td {
+        padding: 0.75rem 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .table-responsive {
+        font-size: 0.8rem;
+    }
+
+    .table tbody td {
+        padding: 0.5rem 0.25rem;
+    }
+
+    .input-group {
+        flex-direction: column;
+    }
+
+    .input-group-text {
+        margin-left: 0 !important;
+        margin-top: 0.5rem;
+    }
+}
