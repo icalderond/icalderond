@@ -1,0 +1,145 @@
+/* Estilos personalizados para la calculadora de media */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    border-radius: 12px 12px 0 0;
+    padding: 1.5rem;
+}
+
+.card-header h2 {
+    font-weight: 600;
+    font-size: 1.8rem;
+}
+
+/* Estilos para los inputs de números */
+#inputsWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.input-group-number {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.input-group-number input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-group-number input:focus {
+    outline: none;
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.input-group-number input:invalid {
+    border-color: #dc3545;
+}
+
+.input-number-label {
+    display: inline-block;
+    min-width: 35px;
+    text-align: right;
+    font-weight: 500;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+/* Botones */
+.btn {
+    padding: 0.75rem 1.25rem;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-success:hover {
+    box-shadow: 0 4px 8px rgba(25, 135, 84, 0.3);
+}
+
+.btn-danger:hover {
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+
+.btn-warning:hover {
+    box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
+}
+
+/* Resultado */
+.result-display {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid #0d6efd;
+    text-align: center;
+}
+
+#result {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #0d6efd;
+    font-family: 'Courier New', monospace;
+}
+
+.alert {
+    border-radius: 8px;
+    border: none;
+    background-color: #e7f3ff;
+    color: #004085;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+    .card-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .d-sm-flex {
+        flex-direction: column;
+    }
+
+    .d-sm-flex .btn {
+        width: 100%;
+    }
+
+    #result {
+        font-size: 2rem;
+    }
+}
