@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Daniel - Pequeños Valientes</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #4e73df, #1cc88a);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.quiz-container {
+    background: white;
+    width: 90%;
+    max-width: 600px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+h2 {
+    margin-bottom: 15px;
+}
+
+.option {
+    display: block;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.option:hover {
+    background: #f8f9fc;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    background: #4e73df;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #2e59d9;
+}
+
+.result {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.feedback {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.feedback.correct {
+    background: #d4edda;
+    color: #155724;
+}
+
+.feedback.incorrect {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.wrong-answers {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.wrong-answer-item {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: white;
+    border-left: 4px solid #dc3545;
+    border-radius: 4px;
+}
+
+.wrong-answer-item strong {
+    color: #dc3545;
+}
+
+.correct-answer {
+    color: #28a745;
+    margin-top: 5px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="quiz-container">
+    <h2 id="question"></h2>
+    <div id="options"></div>
+    <button onclick="nextQuestion()">Siguiente</button>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+const questions = [
+    {
+        question: "¿Quiénes fueron llevados a Babilonia?",
+        options: ["Daniel y sus amigos", "Moisés y Aarón", "Pedro y Juan"],
+        answer: 0
+    },
+    {
+        question: "¿Quién era el rey de Babilonia?",
+        options: ["Darío", "Nabucodonosor", "Ciro"],
+        answer: 1
+    },
+    {
+        question: "¿Qué cosas se llevaron del templo de Dios?",
+        options: ["El arca del pacto", "Los utensilios de la casa de Dios", "Las tablas de la ley"],
+        answer: 1
+    },
+    {
+        question: "¿Qué quería el rey que aprendieran los jóvenes?",
+        options: ["La ley de Moisés", "La lengua y letras de los caldeos", "Artes de guerra"],
+        answer: 1
+    },
+    {
+        question: "¿Qué nombre nuevo le pusieron a Daniel?",
+        options: ["Baltasar", "Sadrac", "Mesac"],
+        answer: 0
+    },
+    {
+        question: "¿Qué decidió Daniel en su corazón?",
+        options: ["Volver a Jerusalén", "No contaminarse con la comida del rey", "Ser consejero del rey"],
+        answer: 1
+    },
+    {
+        question: "¿A quién le pidió Daniel no comer la comida del rey?",
+        options: ["Al rey", "Al jefe de los eunucos", "Al capitán del ejército"],
+        answer: 1
+    },
+    {
+        question: "¿Cuántos días pidió Daniel para la prueba con verduras?",
+        options: ["Cinco días", "Diez días", "Treinta días"],
+        answer: 1
+    },
+    {
+        question: "¿Cómo estaban después de los diez días?",
+        options: ["Más débiles", "Igual que los demás", "Mejor y más robustos"],
+        answer: 2
+    },
+    {
+        question: "¿Qué les dio Dios a estos jóvenes?",
+        options: ["Riquezas", "Conocimiento e inteligencia", "Un palacio"],
+        answer: 1
+    },
+    {
+        question: "¿Qué mandó hacer el rey Nabucodonosor?",
+        options: ["Un templo", "Una estatua de oro", "Un palacio"],
+        answer: 1
+    },
+    {
+        question: "¿Qué debía hacer la gente cuando escuchara la música?",
+        options: ["Cantar", "Arrodillarse y adorar la estatua", "Aplaudir"],
+        answer: 1
+    },
+    {
+        question: "¿Cómo se llamaban los tres amigos que no adoraron la estatua?",
+        options: ["Daniel, Jeremías y Ezequiel", "Sadrac, Mesac y Abed-nego", "Pedro, Juan y Santiago"],
+        answer: 1
+    },
+    {
+        question: "¿Por qué no adoraron la estatua?",
+        options: ["Tenían miedo", "Solo adoraban a Dios", "No escucharon la música"],
+        answer: 1
+    },
+    {
+        question: "¿Qué castigo ordenó el rey?",
+        options: ["Ir a la cárcel", "Ser echados al horno de fuego", "Salir del reino"],
+        answer: 1
+    },
+    {
+        question: "¿Qué dijeron los jóvenes sobre Dios?",
+        options: ["Que no podía salvarlos", "Que podía librarlos del fuego", "Que los abandonaría"],
+        answer: 1
+    },
+    {
+        question: "¿Qué pasó cuando fueron echados al horno?",
+        options: ["Se quemaron", "No se quemaron", "Huyeron"],
+        answer: 1
+    },
+    {
+        question: "¿Cuántas personas vio el rey en el horno?",
+        options: ["Tres", "Cuatro", "Cinco"],
+        answer: 1
+    },
+    {
+        question: "¿Qué pasó con su ropa?",
+        options: ["Se quemó", "Olía a humo", "No se dañó"],
+        answer: 2
+    },
+    {
+        question: "¿Qué aprendemos de esta historia?",
+        options: ["Que Dios cuida a los que confían en Él", "Que el fuego no quema", "Que debemos desobedecer siempre"],
+        answer: 0
+    },
+    {
+        question: "¿Por qué el rey quería que Daniel fuera jefe?",
+        options: ["Era muy rico", "Tenía un espíritu superior", "Era muy fuerte"],
+        answer: 1
+    },
+    {
+        question: "¿Qué sentían los hombres hacia Daniel?",
+        options: ["Envidia", "Alegría", "Amistad"],
+        answer: 0
+    },
+    {
+        question: "¿Qué prohibía la nueva ley?",
+        options: ["Comer carne", "Orar a Dios", "Trabajar"],
+        answer: 1
+    },
+    {
+        question: "¿Qué hizo Daniel cuando supo de la ley?",
+        options: ["Se escondió", "Dejó de orar", "Oró como siempre"],
+        answer: 2
+    },
+    {
+        question: "¿Cuántas veces al día oraba Daniel?",
+        options: ["Una vez", "Tres veces", "Diez veces"],
+        answer: 1
+    },
+    {
+        question: "¿Cómo se puso el rey al castigar a Daniel?",
+        options: ["Muy triste", "Muy feliz", "Enojado con Daniel"],
+        answer: 0
+    },
+    {
+        question: "¿A dónde echaron a Daniel?",
+        options: ["A una cárcel", "Al foso de los leones", "Al desierto"],
+        answer: 1
+    },
+    {
+        question: "¿Quién cerró la boca de los leones?",
+        options: ["El rey", "Un ángel de Dios", "Los soldados"],
+        answer: 1
+    },
+    {
+        question: "¿Cómo salió Daniel del foso?",
+        options: ["Con heridas", "Sin ninguna herida", "Muy débil"],
+        answer: 1
+    },
+    {
+        question: "¿Qué aprendemos de la historia de Daniel?",
+        options: ["Debemos confiar en Dios", "Debemos tener miedo", "No debemos orar"],
+        answer: 0
+    }
+];
+
+let shuffledQuestions = [];
+let currentQuestionIndex = 0;
+let score = 0;
+let selectedAnswer = null;
+let wrongAnswers = [];
+let answered = false;
+
+function shuffle(array) {
+    return array.sort(() => Math.random() - 0.5);
+}
+
+function loadQuestion() {
+    const questionData = shuffledQuestions[currentQuestionIndex];
+    document.getElementById("question").textContent = questionData.question;
+    const optionsContainer = document.getElementById("options");
+    optionsContainer.innerHTML = "";
+    selectedAnswer = null;
+    answered = false;
+    document.getElementById("result").innerHTML = "";
+
+    questionData.options.forEach((option, index) => {
+        const div = document.createElement("div");
+        div.textContent = option;
+        div.classList.add("option");
+        div.onclick = () => selectAnswer(index);
+        optionsContainer.appendChild(div);
+    });
+}
+
+function selectAnswer(index) {
+    if (answered) return;
+    
+    selectedAnswer = index;
+    const options = document.querySelectorAll(".option");
+    const correctAnswer = shuffledQuestions[currentQuestionIndex].answer;
+    
+    if (index === correctAnswer) {
+        options[index].style.background = "#28a745";
+        options[index].style.color = "white";
+        showFeedback(true, null);
+        score++;
+    } else {
+        options[index].style.background = "#dc3545";
+        options[index].style.color = "white";
+        options[correctAnswer].style.background = "#28a745";
+        options[correctAnswer].style.color = "white";
+        showFeedback(false, correctAnswer);
+        wrongAnswers.push({
+            question: shuffledQuestions[currentQuestionIndex].question,
+            userAnswer: shuffledQuestions[currentQuestionIndex].options[index],
+            correctAnswer: shuffledQuestions[currentQuestionIndex].options[correctAnswer]
+        });
+    }
+    
+    answered = true;
+}
+
+function showFeedback(isCorrect, correctAnswerIndex) {
+    const feedbackDiv = document.createElement("div");
+    feedbackDiv.classList.add("feedback");
+    if (isCorrect) {
+        feedbackDiv.classList.add("correct");
+        feedbackDiv.textContent = "✓ ¡Correcto!";
+    } else {
+        feedbackDiv.classList.add("incorrect");
+        feedbackDiv.textContent = "✗ Incorrecto";
+    }
+    document.getElementById("result").innerHTML = "";
+    document.getElementById("result").appendChild(feedbackDiv);
+}
+
+function nextQuestion() {
+    if (selectedAnswer === null) {
+        alert("Selecciona una respuesta");
+        return;
+    }
+
+    currentQuestionIndex++;
+
+    if (currentQuestionIndex < shuffledQuestions.length) {
+        loadQuestion();
+    } else {
+        showResult();
+    }
+}
+
+function showResult() {
+    const percentage = Math.round((score / shuffledQuestions.length) * 100);
+    document.getElementById("question").textContent = "¡Quiz terminado!";
+    document.getElementById("options").innerHTML = "";
+    document.querySelector("button").style.display = "none";
+    
+    let resultHTML = `<div class="result">Obtuviste ${score} de ${shuffledQuestions.length} (${percentage}%).</div>`;
+    
+    if (wrongAnswers.length > 0) {
+        resultHTML += `<div class="wrong-answers"><h3>Preguntas Incorrectas:</h3>`;
+        wrongAnswers.forEach((item, index) => {
+            resultHTML += `
+                <div class="wrong-answer-item">
+                    <strong>Pregunta ${index + 1}:</strong> ${item.question}<br>
+                    <span style="color: #dc3545;">Tu respuesta: ${item.userAnswer}</span><br>
+                    <span class="correct-answer">✓ Respuesta correcta: ${item.correctAnswer}</span>
+                </div>
+            `;
+        });
+        resultHTML += `</div>`;
+    }
+    
+    document.getElementById("result").innerHTML = resultHTML;
+}
+
+function startQuiz() {
+    shuffledQuestions = shuffle([...questions]);
+    wrongAnswers = [];
+    score = 0;
+    currentQuestionIndex = 0;
+    loadQuestion();
+}
+
+startQuiz();
+</script>
+
+</body>
+</html>
