@@ -1,61 +1,807 @@
-<!DOCTYPE HTML>
-<!--
-	Identity by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title> @icalderond | Developer</title>
-	<link rel="shortcut icon" href="images/578955214_10163151678897302_457641822497974277_n.jpg">
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="assets/css/main.css" />
-	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" />
-	</noscript>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Israel Calderón | .NET MAUI Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #ffffff;
+      --bg-card: #f6f8fa;
+      --bg-card-hover: #eef1f5;
+      --border: #d0d7de;
+      --text: #1f2328;
+      --text-muted: #656d76;
+      --purple: #512BD4;
+      --blue: #00B4EF;
+      --gradient: linear-gradient(135deg, var(--purple), var(--blue));
+      --radius: 12px;
+      --nav-bg: rgba(255,255,255,.85);
+      --badge-bg: rgba(81,43,212,.08);
+      --badge-border: rgba(81,43,212,.2);
+      --badge-text: #512BD4;
+      --tag-bg: rgba(81,43,212,.08);
+      --tag-text: #512BD4;
+      --icon-bg: rgba(81,43,212,.08);
+      --icon-color: #512BD4;
+    }
+    html.dark {
+      --bg: #0d1117;
+      --bg-card: #161b22;
+      --bg-card-hover: #1c2333;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --nav-bg: rgba(13,17,23,.85);
+      --badge-bg: rgba(81,43,212,.15);
+      --badge-border: rgba(81,43,212,.3);
+      --badge-text: #b48aff;
+      --tag-bg: rgba(81,43,212,.1);
+      --tag-text: #b48aff;
+      --icon-bg: rgba(81,43,212,.15);
+      --icon-color: #b48aff;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background .3s, color .3s;
+    }
+    a { color: var(--blue); }
+
+    nav {
+      position: fixed; inset: 0 0 auto 0; z-index: 100;
+      padding: 0 24px; height: 64px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--nav-bg); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: background .3s, border-color .3s;
+    }
+    nav .inner {
+      width: 100%; max-width: 960px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    nav .logo {
+      font-weight: 800; font-size: 1.2rem;
+      background: var(--gradient); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    nav .links { display: flex; align-items: center; gap: 20px; }
+    nav .links a {
+      color: var(--text-muted); font-size: 0.875rem; font-weight: 500;
+      transition: color .2s;
+    }
+    nav .links a:hover { color: var(--text); }
+    nav .toggles { display: flex; align-items: center; gap: 6px; margin-left: 8px; }
+    .toggle-btn {
+      background: none; border: 1px solid var(--border); color: var(--text-muted);
+      padding: 5px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;
+      cursor: pointer; transition: all .2s; display: flex; align-items: center; gap: 4px;
+    }
+    .toggle-btn:hover { border-color: var(--purple); color: var(--text); }
+    .toggle-btn.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+
+    section { max-width: 960px; margin: 0 auto; padding: 96px 24px; }
+
+    #hero { min-height: 100vh; display: flex; align-items: center; padding-top: 64px; }
+    #hero .inner {
+      display: flex; align-items: center; gap: 48px;
+      width: 100%;
+    }
+    #hero .photo {
+      flex-shrink: 0;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: var(--badge-bg); border: 3px solid var(--badge-border);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    #hero .photo img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    #hero .photo .ph {
+      color: var(--badge-text); font-size: 0.8rem; text-align: center;
+      padding: 16px; line-height: 1.4;
+    }
+    #hero .content { flex: 1; min-width: 0; }
+    #hero .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 14px; border-radius: 999px;
+      background: var(--badge-bg); border: 1px solid var(--badge-border);
+      color: var(--badge-text); font-size: 0.8rem; font-weight: 500;
+      margin-bottom: 20px; width: fit-content;
+      transition: background .3s, border-color .3s, color .3s;
+    }
+    #hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 800;
+      line-height: 1.1; margin-bottom: 8px;
+    }
+    #hero h1 .highlight { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    #hero .location {
+      font-size: 0.95rem; color: var(--text-muted); margin-bottom: 16px;
+    }
+    #hero p {
+      font-size: 1.1rem; color: var(--text-muted);
+      max-width: 600px; margin-bottom: 28px;
+      transition: color .3s;
+    }
+    #hero .cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 28px; border-radius: 8px;
+      font-weight: 600; font-size: 0.9rem;
+      transition: all .25s; cursor: pointer; border: none;
+      text-decoration: none;
+    }
+    .btn-primary { background: var(--gradient); color: #fff; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(81,43,212,.35); }
+    .btn-outline {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--text-muted); transform: translateY(-2px); }
+
+    .section-header { text-align: center; margin-bottom: 48px; }
+    .section-header h2 { font-size: 1.75rem; font-weight: 700; margin-bottom: 8px; }
+    .section-header p { color: var(--text-muted); transition: color .3s; font-size: 0.95rem; }
+    .section-header .line {
+      width: 48px; height: 4px; border-radius: 4px;
+      background: var(--gradient); margin: 14px auto 0;
+    }
+
+    #about p {
+      color: var(--text-muted); max-width: 720px; margin: 0 auto;
+      text-align: center; font-size: 1.05rem;
+      transition: color .3s;
+    }
+    #about .stats {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px; margin-top: 40px;
+    }
+    #about .stat {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px; text-align: center;
+      transition: all .3s;
+    }
+    #about .stat:hover { background: var(--bg-card-hover); }
+    #about .stat .number {
+      font-size: 1.8rem; font-weight: 800;
+      background: var(--gradient); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    #about .stat .label { color: var(--text-muted); font-size: 0.85rem; margin-top: 4px; }
+
+    .timeline { position: relative; padding-left: 32px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 8px; top: 8px; bottom: 8px;
+      width: 2px; background: var(--border);
+    }
+    .timeline-item {
+      position: relative; margin-bottom: 32px; padding-left: 24px;
+    }
+    .timeline-item::before {
+      content: ''; position: absolute; left: -28px; top: 8px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--gradient); border: 3px solid var(--bg);
+    }
+    .timeline-item .date { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px; }
+    .timeline-item h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 2px; }
+    .timeline-item .company { color: var(--blue); font-weight: 500; font-size: 0.95rem; }
+    .timeline-item p { color: var(--text-muted); font-size: 0.9rem; margin-top: 6px; }
+
+    #education .grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+    .info-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px;
+      transition: all .25s;
+    }
+    .info-card:hover { background: var(--bg-card-hover); }
+    .info-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+    .info-card .sub { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 4px; }
+    .info-card .date { font-size: 0.8rem; color: var(--text-muted); }
+    .info-card ul { list-style: none; margin-top: 8px; }
+    .info-card ul li {
+      font-size: 0.85rem; color: var(--text-muted); padding: 3px 0;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .info-card ul li i { color: var(--purple); font-size: 0.7rem; }
+
+    #skills .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
+    }
+    #skills .skill {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 10px; padding: 20px 12px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); transition: all .25s;
+    }
+    #skills .skill:hover {
+      background: var(--bg-card-hover);
+      transform: translateY(-3px);
+      border-color: var(--purple);
+    }
+    #skills .skill i { font-size: 2rem; }
+    #skills .skill .name { font-size: 0.8rem; font-weight: 600; text-align: center; }
+
+    #projects .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    #projects .card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px;
+      transition: all .25s;
+    }
+    #projects .card:hover {
+      background: var(--bg-card-hover);
+      transform: translateY(-4px);
+      border-color: var(--purple);
+    }
+    #projects .card .icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--icon-bg);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px; font-size: 1.2rem; color: var(--icon-color);
+      transition: background .3s, color .3s;
+    }
+    #projects .card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; }
+    #projects .card p { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 12px; }
+    #projects .card .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    #projects .card .tags span {
+      padding: 4px 10px; border-radius: 6px;
+      background: var(--tag-bg); color: var(--tag-text);
+      font-size: 0.75rem; font-weight: 500;
+      transition: background .3s, color .3s;
+    }
+
+    #honors .grid {
+      display: grid; gap: 16px;
+    }
+    #honors .card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 24px;
+      transition: all .25s;
+    }
+    #honors .card:hover { background: var(--bg-card-hover); }
+    #honors .card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+    #honors .card .sub { color: var(--text-muted); font-size: 0.85rem; }
+    #honors .card .date { color: var(--text-muted); font-size: 0.8rem; margin-top: 4px; }
+
+    #languages .grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+    #languages .lang {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: all .25s;
+    }
+    #languages .lang:hover { background: var(--bg-card-hover); }
+    #languages .lang .name { font-weight: 600; font-size: 0.95rem; }
+    #languages .lang .level { color: var(--text-muted); font-size: 0.85rem; }
+
+    #contact .links {
+      display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;
+    }
+    #contact .links a, #contact .links .btn {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 24px; border-radius: var(--radius);
+      background: var(--bg-card); border: 1px solid var(--border);
+      color: var(--text); font-weight: 500;
+      transition: all .25s; text-decoration: none;
+    }
+    #contact .links a:hover, #contact .links .btn:hover {
+      background: var(--bg-card-hover);
+      transform: translateY(-3px);
+      border-color: var(--purple);
+    }
+    #contact .links a i, #contact .links .btn i { font-size: 1.2rem; }
+
+    footer {
+      text-align: center; padding: 32px 24px;
+      color: var(--text-muted); font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+      transition: color .3s, border-color .3s;
+    }
+
+    .fade-in {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    html[data-lang="en"] .lang-es { display: none; }
+    html[data-lang="es"] .lang-en { display: none; }
+
+    @media (max-width: 700px) {
+      nav .links { gap: 10px; }
+      nav .links a { font-size: 0.75rem; }
+      nav .toggles { gap: 4px; }
+      .toggle-btn { padding: 4px 7px; font-size: 0.7rem; }
+      section { padding: 64px 20px; }
+      #hero .inner { flex-direction: column; text-align: center; }
+      #hero .photo { width: 140px; height: 140px; }
+      #hero .cta { justify-content: center; }
+      #hero .badge { margin-left: auto; margin-right: auto; }
+      #hero .location { justify-content: center; }
+      #education .grid { grid-template-columns: 1fr; }
+      #languages .grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 500px) {
+      nav .links a { font-size: 0.7rem; }
+      .toggle-btn span { display: none; }
+    }
+  </style>
 </head>
+<body>
 
-<body class="is-preload">
+  <nav>
+    <div class="inner">
+      <span class="logo">IZ.C</span>
+      <div class="links">
+        <a href="#about" data-i18n="nav.about">About</a>
+        <a href="#experience" data-i18n="nav.experience">Experience</a>
+        <a href="#education" data-i18n="nav.education">Education</a>
+        <a href="#skills" data-i18n="nav.skills">Skills</a>
+        <a href="#projects" data-i18n="nav.projects">Projects</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+        <div class="toggles">
+          <button class="toggle-btn" id="themeToggle" aria-label="Toggle theme"><i class="fa-solid fa-sun"></i></button>
+          <button class="toggle-btn active" id="langEn">EN</button>
+          <button class="toggle-btn" id="langEs">ES</button>
+        </div>
+      </div>
+    </div>
+  </nav>
 
-	<!-- Wrapper -->
-	<div id="wrapper">
+  <!-- Hero -->
+  <section id="hero">
+    <div class="inner">
+      <div class="photo">
+        <img src="img/profile_cv.jpg" alt="Israel Calderón" />
+      </div>
+      <div class="content">
+        <div class="badge"><i class="fa-brands fa-microsoft"></i> <span data-i18n="hero.badge">.NET MAUI Developer</span></div>
+        <h1>
+          <span data-i18n="hero.greeting">Hi, I'm</span> <span class="highlight">Israel Calderón</span>
+        </h1>
+        <div class="location"><i class="fa-solid fa-location-dot"></i> Montemorelos, Mexico</div>
+        <p data-i18n="hero.description">
+          .NET Mobile Developer building native cross-platform apps with .NET MAUI, Xamarin.Forms, and ASP.NET Core.
+        </p>
+        <div class="cta">
+          <a href="#projects" class="btn btn-primary"><i class="fa-solid fa-code"></i> <span data-i18n="hero.ctaProjects">View projects</span></a>
+          <a href="#contact" class="btn btn-outline"><i class="fa-solid fa-envelope"></i> <span data-i18n="hero.ctaContact">Contact</span></a>
+          <a href="cv.pdf" class="btn btn-outline" target="_blank"><i class="fa-solid fa-file-pdf"></i> <span data-i18n="hero.cv">Download CV</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-		<!-- Main -->
-		<section id="main">
-			<header>
-				<span class="avatar"><img src="images/578955214_10163151678897302_457641822497974277_n.jpg" alt=""
-						width="160" height="160" /></span>
-				<h1>Israel Calderón de la Cruz</h1>
-				<p class="role">.NET Mobile Developer<br /><span class="company">ATOS GLOBAL</span></p>
-			</header>
+  <!-- About -->
+  <section id="about" class="fade-in">
+    <div class="section-header">
+      <h2 data-i18n="about.title">About me</h2>
+      <div class="line"></div>
+    </div>
+    <p data-i18n="about.description">
+      .NET Mobile Developer at Atos with a passion for cross-platform development.
+      Experienced building native apps with .NET MAUI and Xamarin.Forms, plus backend
+      services with ASP.NET Core and Azure. Based in Montemorelos, Mexico. Graduate of
+      Instituto Tecnológico de Nuevo Laredo. For over a decade I've also volunteered
+      as a programming instructor, teaching OOP, XAML, MVVM, and Xamarin at my alma mater.
+    </p>
+    <div class="stats">
+      <div class="stat">
+        <div class="number" data-i18n="about.stat1Num">10+</div>
+        <div class="label" data-i18n="about.stat1Label">Years coding</div>
+      </div>
+      <div class="stat">
+        <div class="number" data-i18n="about.stat2Num">10+</div>
+        <div class="label" data-i18n="about.stat2Label">Projects delivered</div>
+      </div>
+      <div class="stat">
+        <div class="number" data-i18n="about.stat3Num">12+</div>
+        <div class="label" data-i18n="about.stat3Label">Years teaching</div>
+      </div>
+    </div>
+  </section>
 
-			<footer>
-				<ul class="icons">
-					<li><a href="https://www.linkedin.com/in/icalderond/" class="icon brands fa-linkedin">LinkedIn</a>
-					</li>
-					<li><a href="https://github.com/icalderond" class="icon brands fa-github">GitHub</a></li>
-					<li><a href="https://www.instagram.com/icalderond/" class="icon brands fa-instagram">Instagram</a>
-					</li>
-					<li><a href="https://medium.com/@icalderond" class="icon brands fa-medium">Medium</a></li>
-				</ul>
-			</footer>
-		</section>
+  <!-- Experience -->
+  <section id="experience" class="fade-in">
+    <div class="section-header">
+      <h2 data-i18n="exp.title">Experience</h2>
+      <div class="line"></div>
+    </div>
 
-		<!-- Footer -->
-		<footer id="footer">
-			<ul class="copyright">
-				<li>&copy;🍎📱 @icalderond</li>
-				<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-			</ul>
-		</footer>
+    <h3 style="margin-bottom:20px;font-size:1.15rem;font-weight:600;" data-i18n="exp.professional">Professional</h3>
+    <div class="timeline" style="margin-bottom:48px;">
+      <div class="timeline-item">
+        <div class="date" data-i18n="exp.job1.date">2021 — Present</div>
+        <h3 data-i18n="exp.job1.title">.NET Mobile Developer</h3>
+        <div class="company">Atos</div>
+        <p data-i18n="exp.job1.desc">Building cross-platform mobile apps with .NET MAUI and Xamarin.Forms. Implementing MVVM, dependency injection, and REST API consumption.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="date" data-i18n="exp.job2.date">2021 — 2024</div>
+        <h3 data-i18n="exp.job2.title">Mobile Developer</h3>
+        <div class="company">Herbalife Nutrition</div>
+        <p data-i18n="exp.job2.desc">Developed PAH Mobile (Android & iOS) — a mobile solution for Herbalife associates to consult product info and business tools, backed by a web API.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="date" data-i18n="exp.job3.date">2017 — 2021</div>
+        <h3 data-i18n="exp.job3.title">.NET / Xamarin Developer</h3>
+        <div class="company" data-i18n="exp.job3.company">Various companies</div>
+        <p data-i18n="exp.job3.desc">Developed REST APIs with ASP.NET Core, maintained Windows applications, and started building mobile apps with Xamarin.Forms.</p>
+      </div>
+    </div>
 
-	</div>
+    <h3 style="margin-bottom:20px;font-size:1.15rem;font-weight:600;" data-i18n="exp.teaching">Teaching &amp; Volunteering</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="date" data-i18n="exp.teach1.date">2013 — Present</div>
+        <h3 data-i18n="exp.teach1.title">Programming Instructor</h3>
+        <div class="company">Instituto Tecnológico de Nuevo Laredo</div>
+        <p data-i18n="exp.teach1.desc">Teaching OOP with C#, WPF with MVVM, XAML and data binding at annual symposiums.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="date" data-i18n="exp.teach2.date">2015 — Present</div>
+        <h3 data-i18n="exp.teach2.title">Xamarin.Android Instructor</h3>
+        <div class="company">Instituto Tecnológico de Nuevo Laredo</div>
+        <p data-i18n="exp.teach2.desc">Teaching Android development with Xamarin Studio and C# — app fundamentals, UI elements, and deployment.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="date" data-i18n="exp.teach3.date">2015 — Present</div>
+        <h3 data-i18n="exp.teach3.title">Volunteer Photographer</h3>
+        <div class="company" data-i18n="exp.teach3.company">Street Store Nuevo Laredo</div>
+        <p data-i18n="exp.teach3.desc">Supporting people in need by providing clothing, food, and services — capturing the mission through photography.</p>
+      </div>
+    </div>
+  </section>
 
-	<!-- Scripts -->
-	<script src="assets/js/main.js"></script>
+  <!-- Education & Certifications -->
+  <section id="education" class="fade-in">
+    <div class="section-header">
+      <h2 data-i18n="edu.title">Education &amp; Certifications</h2>
+      <div class="line"></div>
+    </div>
+    <div class="grid">
+      <div class="info-card">
+        <h3 data-i18n="edu.degree">B.S. Computer Engineering</h3>
+        <div class="sub">Instituto Tecnológico de Nuevo Laredo</div>
+        <div class="date">2010 — 2014</div>
+        <ul>
+          <li><i class="fa-solid fa-circle"></i> <span data-i18n="edu.course1">Windows Phone 8 Development</span></li>
+          <li><i class="fa-solid fa-circle"></i> <span data-i18n="edu.course2">Java for Android</span></li>
+          <li><i class="fa-solid fa-circle"></i> <span data-i18n="edu.course3">PHP &amp; MySQL</span></li>
+          <li><i class="fa-solid fa-circle"></i> <span data-i18n="edu.course4">LabVIEW</span></li>
+          <li><i class="fa-solid fa-circle"></i> <span data-i18n="edu.course5">Web development for mobile</span></li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h3 data-i18n="edu.certs">Certifications</h3>
+        <ul>
+          <li><i class="fa-solid fa-certificate"></i> discover-drive — Code School</li>
+          <li><i class="fa-solid fa-certificate"></i> <span data-i18n="edu.cert1">1st place State Programming Contest</span> — TAMCODER 2013</li>
+          <li><i class="fa-solid fa-certificate"></i> <span data-i18n="edu.cert2">Responsible AI with GitHub Copilot</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
+  <!-- Skills -->
+  <section id="skills" class="fade-in">
+    <div class="section-header">
+      <h2 data-i18n="skills.title">Technologies</h2>
+      <p data-i18n="skills.subtitle">My daily stack and tools</p>
+      <div class="line"></div>
+    </div>
+    <div class="grid">
+      <div class="skill"><i class="fa-brands fa-microsoft" style="color:#512BD4"></i><span class="name">.NET MAUI</span></div>
+      <div class="skill"><i class="fa-solid fa-mobile-screen" style="color:#00B4EF"></i><span class="name">Xamarin.Forms</span></div>
+      <div class="skill"><i class="fa-solid fa-code" style="color:#00B4EF"></i><span class="name">C#</span></div>
+      <div class="skill"><i class="fa-solid fa-database" style="color:#f29111"></i><span class="name">SQL Server</span></div>
+      <div class="skill"><i class="fa-solid fa-cloud" style="color:#0078D4"></i><span class="name">Azure</span></div>
+      <div class="skill"><i class="fa-solid fa-gears" style="color:#512BD4"></i><span class="name">ASP.NET Core</span></div>
+      <div class="skill"><i class="fa-brands fa-git-alt" style="color:#f05032"></i><span class="name">Git</span></div>
+      <div class="skill"><i class="fa-solid fa-bolt" style="color:#f05138"></i><span class="name">MAUI</span></div>
+      <div class="skill"><i class="fa-solid fa-diagram-project" style="color:#61dafb"></i><span class="name">MVVM</span></div>
+      <div class="skill"><i class="fa-brands fa-xbox" style="color:#107C10"></i><span class="name">XAML</span></div>
+      <div class="skill"><i class="fa-solid fa-flask" style="color:#764ABC"></i><span class="name">Unit Test</span></div>
+      <div class="skill"><i class="fa-brands fa-docker" style="color:#2496ED"></i><span class="name">Docker</span></div>
+      <div class="skill"><i class="fa-brands fa-apple" style="color:#555"></i><span class="name">iOS</span></div>
+      <div class="skill"><i class="fa-brands fa-android" style="color:#3ddc84"></i><span class="name">Android</span></div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="fade-in">
+    <div class="section-header">
+      <h2 data-i18n="projects.title">Projects</h2>
+      <p data-i18n="projects.subtitle">Notable work</p>
+      <div class="line"></div>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="icon"><i class="fa-solid fa-leaf"></i></div>
+        <h3 data-i18n="projects.proj1.title">PAH Mobile — Android</h3>
+        <p data-i18n="projects.proj1.desc">Mobile app for Herbalife associates to consult product information and business resources, built with Xamarin.Android and a web API backend.</p>
+        <div class="tags"><span>Xamarin</span><span>Android</span><span>C#</span></div>
+      </div>
+      <div class="card">
+        <div class="icon"><i class="fa-brands fa-apple"></i></div>
+        <h3 data-i18n="projects.proj2.title">PAH Mobile — iOS</h3>
+        <p data-i18n="projects.proj2.desc">iOS counterpart of PAH Mobile, delivering the same functionality for Apple devices using Xamarin.iOS.</p>
+        <div class="tags"><span>Xamarin</span><span>iOS</span><span>C#</span></div>
+      </div>
+      <div class="card">
+        <div class="icon"><i class="fa-solid fa-table-cells"></i></div>
+        <h3 data-i18n="projects.proj3.title">Tabla Periódica</h3>
+        <p data-i18n="projects.proj3.desc">Periodic table app for Windows Phone 7.5/8/8.1 with element information in Spanish. Two versions: ES and LI.</p>
+        <div class="tags"><span>Windows Phone</span><span>C#</span><span>XAML</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Honors & Awards -->
+  <section id="honors" class="fade-in">
+    <div class="section-header">
+      <h2 data-i18n="honors.title">Honors &amp; Awards</h2>
+      <div class="line"></div>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <h3 data-i18n="honors.award1.title">Xamarin.Android Workshop Instructor</h3>
+        <div class="sub" data-i18n="honors.award1.org">ITNL — XXV Simposium International ISC</div>
+        <div class="date">Nov 2016</div>
+      </div>
+      <div class="card">
+        <h3 data-i18n="honors.award2.title">XAML Application Development Workshop Instructor</h3>
+        <div class="sub" data-i18n="honors.award2.org">ITNL — XXIV Simposium International ISC</div>
+        <div class="date">Nov 2015</div>
+      </div>
+      <div class="card">
+        <h3 data-i18n="honors.award3.title">OOP in C# Workshop Instructor</h3>
+        <div class="sub" data-i18n="honors.award3.org">ITNL — XXII Simposium International ISC</div>
+        <div class="date">Oct 2013</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Languages -->
+  <section id="languages" class="fade-in">
+    <div class="section-header">
+      <h2 data-i18n="lang.title">Languages</h2>
+      <div class="line"></div>
+    </div>
+    <div class="grid">
+      <div class="lang">
+        <span class="name">Español</span>
+        <span class="level" data-i18n="lang.native">Native</span>
+      </div>
+      <div class="lang">
+        <span class="name">English</span>
+        <span class="level" data-i18n="lang.professional">Professional</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="fade-in">
+    <div class="section-header">
+      <h2 data-i18n="contact.title">Contact</h2>
+      <p data-i18n="contact.subtitle">Let's talk about your next project</p>
+      <div class="line"></div>
+    </div>
+    <div class="links">
+      <a href="https://github.com/icalderond" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+      <a href="https://linkedin.com/in/icalderond" target="_blank"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+      <a href="mailto:icalderond@outlook.com"><i class="fa-solid fa-envelope"></i> <span data-i18n="contact.email">Email</span></a>
+      <a href="cv.pdf" target="_blank" class="btn-primary" style="background:var(--gradient);color:#fff;border:none;"><i class="fa-solid fa-file-pdf"></i> <span data-i18n="contact.cv">Download CV</span></a>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Israel Calderón &middot; <span data-i18n="footer.made">Made with</span> <i class="fa-solid fa-heart" style="color:#512BD4"></i> <span data-i18n="footer.dotnet">and .NET</span>
+  </footer>
+
+  <script>
+    const i18n = {
+      en: {
+        'nav.about': 'About', 'nav.experience': 'Experience', 'nav.education': 'Education',
+        'nav.skills': 'Skills', 'nav.projects': 'Projects', 'nav.contact': 'Contact',
+        'hero.badge': '.NET MAUI Developer',
+        'hero.greeting': 'Hi, I\'m',
+        'hero.description': '.NET Mobile Developer building native cross-platform apps with .NET MAUI, Xamarin.Forms, and ASP.NET Core.',
+        'hero.ctaProjects': 'View projects', 'hero.ctaContact': 'Contact', 'hero.cv': 'Download CV',
+        'about.title': 'About me',
+        'about.description': '.NET Mobile Developer at Atos with a passion for cross-platform development. Experienced building native apps with .NET MAUI and Xamarin.Forms, plus backend services with ASP.NET Core and Azure. Based in Montemorelos, Mexico. Graduate of Instituto Tecnológico de Nuevo Laredo. For over a decade I\'ve also volunteered as a programming instructor, teaching OOP, XAML, MVVM, and Xamarin at my alma mater.',
+        'about.stat1Num': '10+', 'about.stat1Label': 'Years coding',
+        'about.stat2Num': '10+', 'about.stat2Label': 'Projects delivered',
+        'about.stat3Num': '12+', 'about.stat3Label': 'Years teaching',
+        'exp.title': 'Experience', 'exp.professional': 'Professional',
+        'exp.job1.date': '2021 — Present',
+        'exp.job1.title': '.NET Mobile Developer',
+        'exp.job1.desc': 'Building cross-platform mobile apps with .NET MAUI and Xamarin.Forms. Implementing MVVM, dependency injection, and REST API consumption.',
+        'exp.job2.date': '2021 — 2024',
+        'exp.job2.title': 'Mobile Developer',
+        'exp.job2.desc': 'Developed PAH Mobile (Android & iOS) — a mobile solution for Herbalife associates to consult product info and business tools, backed by a web API.',
+        'exp.job3.date': '2017 — 2021',
+        'exp.job3.title': '.NET / Xamarin Developer',
+        'exp.job3.company': 'Various companies',
+        'exp.job3.desc': 'Developed REST APIs with ASP.NET Core, maintained Windows applications, and started building mobile apps with Xamarin.Forms.',
+        'exp.teaching': 'Teaching & Volunteering',
+        'exp.teach1.date': '2013 — Present',
+        'exp.teach1.title': 'Programming Instructor',
+        'exp.teach1.desc': 'Teaching OOP with C#, WPF with MVVM, XAML and data binding at annual symposiums.',
+        'exp.teach2.date': '2015 — Present',
+        'exp.teach2.title': 'Xamarin.Android Instructor',
+        'exp.teach2.desc': 'Teaching Android development with Xamarin Studio and C# — app fundamentals, UI elements, and deployment.',
+        'exp.teach3.date': '2015 — Present',
+        'exp.teach3.title': 'Volunteer Photographer',
+        'exp.teach3.company': 'Street Store Nuevo Laredo',
+        'exp.teach3.desc': 'Supporting people in need by providing clothing, food, and services — capturing the mission through photography.',
+        'edu.title': 'Education & Certifications',
+        'edu.degree': 'B.S. Computer Engineering',
+        'edu.course1': 'Windows Phone 8 Development',
+        'edu.course2': 'Java for Android',
+        'edu.course3': 'PHP & MySQL',
+        'edu.course4': 'LabVIEW',
+        'edu.course5': 'Web development for mobile',
+        'edu.certs': 'Certifications',
+        'edu.cert1': '1st place State Programming Contest',
+        'edu.cert2': 'Responsible AI with GitHub Copilot',
+        'skills.title': 'Technologies', 'skills.subtitle': 'My daily stack and tools',
+        'projects.title': 'Projects', 'projects.subtitle': 'Notable work',
+        'projects.proj1.title': 'PAH Mobile — Android',
+        'projects.proj1.desc': 'Mobile app for Herbalife associates to consult product information and business resources, built with Xamarin.Android and a web API backend.',
+        'projects.proj2.title': 'PAH Mobile — iOS',
+        'projects.proj2.desc': 'iOS counterpart of PAH Mobile, delivering the same functionality for Apple devices using Xamarin.iOS.',
+        'projects.proj3.title': 'Tabla Periódica',
+        'projects.proj3.desc': 'Periodic table app for Windows Phone 7.5/8/8.1 with element information in Spanish. Two versions: ES and LI.',
+        'honors.title': 'Honors & Awards',
+        'honors.award1.title': 'Xamarin.Android Workshop Instructor',
+        'honors.award1.org': 'ITNL — XXV Simposium International ISC',
+        'honors.award2.title': 'XAML Application Development Workshop Instructor',
+        'honors.award2.org': 'ITNL — XXIV Simposium International ISC',
+        'honors.award3.title': 'OOP in C# Workshop Instructor',
+        'honors.award3.org': 'ITNL — XXII Simposium International ISC',
+        'lang.title': 'Languages',
+        'lang.native': 'Native',
+        'lang.professional': 'Professional Working',
+        'contact.title': 'Contact', 'contact.subtitle': 'Let\'s talk about your next project',
+        'contact.email': 'Email', 'contact.cv': 'Download CV',
+        'footer.made': 'Made with', 'footer.dotnet': 'and .NET'
+      },
+      es: {
+        'nav.about': 'Sobre mí', 'nav.experience': 'Experiencia', 'nav.education': 'Educación',
+        'nav.skills': 'Skills', 'nav.projects': 'Proyectos', 'nav.contact': 'Contacto',
+        'hero.badge': '.NET MAUI Developer',
+        'hero.greeting': 'Hola, soy',
+        'hero.description': 'Desarrollador .NET Mobile creando apps nativas multiplataforma con .NET MAUI, Xamarin.Forms y ASP.NET Core.',
+        'hero.ctaProjects': 'Ver proyectos', 'hero.ctaContact': 'Contacto', 'hero.cv': 'Descargar CV',
+        'about.title': 'Sobre mí',
+        'about.description': '.NET Mobile Developer en Atos apasionado por el desarrollo multiplataforma. Experiencia construyendo apps nativas con .NET MAUI y Xamarin.Forms, así como servicios backend con ASP.NET Core y Azure. Con sede en Montemorelos, México. Egresado del Instituto Tecnológico de Nuevo Laredo. Por más de una década he sido instructor voluntario, enseñando POO, XAML, MVVM y Xamarin en mi alma mater.',
+        'about.stat1Num': '10+', 'about.stat1Label': 'Años programando',
+        'about.stat2Num': '10+', 'about.stat2Label': 'Proyectos entregados',
+        'about.stat3Num': '12+', 'about.stat3Label': 'Años enseñando',
+        'exp.title': 'Experiencia', 'exp.professional': 'Profesional',
+        'exp.job1.date': '2021 — Presente',
+        'exp.job1.title': '.NET Mobile Developer',
+        'exp.job1.desc': 'Creando apps móviles multiplataforma con .NET MAUI y Xamarin.Forms. Implementando MVVM, inyección de dependencias y consumo de APIs REST.',
+        'exp.job2.date': '2021 — 2024',
+        'exp.job2.title': 'Desarrollador Mobile',
+        'exp.job2.desc': 'Desarrollé PAH Mobile (Android & iOS) — solución móvil para asociados Herbalife para consultar productos y herramientas de negocio, con API web.',
+        'exp.job3.date': '2017 — 2021',
+        'exp.job3.title': 'Desarrollador .NET / Xamarin',
+        'exp.job3.company': 'Varias empresas',
+        'exp.job3.desc': 'Desarrollé APIs REST con ASP.NET Core, mantuve aplicaciones Windows e inicié en el desarrollo móvil con Xamarin.Forms.',
+        'exp.teaching': 'Docencia y Voluntariado',
+        'exp.teach1.date': '2013 — Presente',
+        'exp.teach1.title': 'Instructor de Programación',
+        'exp.teach1.desc': 'Enseñando POO con C#, WPF con MVVM, XAML y data binding en simposiums anuales.',
+        'exp.teach2.date': '2015 — Presente',
+        'exp.teach2.title': 'Instructor Xamarin.Android',
+        'exp.teach2.desc': 'Enseñando desarrollo Android con Xamarin Studio y C# — fundamentos de apps, elementos UI y despliegue.',
+        'exp.teach3.date': '2015 — Presente',
+        'exp.teach3.title': 'Fotógrafo Voluntario',
+        'exp.teach3.company': 'Street Store Nuevo Laredo',
+        'exp.teach3.desc': 'Apoyando a personas necesitadas con ropa, comida y servicios — capturando la misión a través de la fotografía.',
+        'edu.title': 'Educación y Certificaciones',
+        'edu.degree': 'Ing. Sistemas Computacionales',
+        'edu.course1': 'Desarrollo Windows Phone 8',
+        'edu.course2': 'Java para Android',
+        'edu.course3': 'PHP y MySQL',
+        'edu.course4': 'LabVIEW',
+        'edu.course5': 'Desarrollo web para móviles',
+        'edu.certs': 'Certificaciones',
+        'edu.cert1': '1er lugar Concurso Estatal de Programación',
+        'edu.cert2': 'Responsible AI with GitHub Copilot',
+        'skills.title': 'Tecnologías', 'skills.subtitle': 'Stack y herramientas diarias',
+        'projects.title': 'Proyectos', 'projects.subtitle': 'Trabajos representativos',
+        'projects.proj1.title': 'PAH Mobile — Android',
+        'projects.proj1.desc': 'App para asociados Herbalife para consultar información de productos y recursos de negocio, construida con Xamarin.Android.',
+        'projects.proj2.title': 'PAH Mobile — iOS',
+        'projects.proj2.desc': 'Versión iOS de PAH Mobile con la misma funcionalidad para dispositivos Apple usando Xamarin.iOS.',
+        'projects.proj3.title': 'Tabla Periódica',
+        'projects.proj3.desc': 'App de tabla periódica para Windows Phone 7.5/8/8.1 con información de elementos en español. Versiones ES y LI.',
+        'honors.title': 'Reconocimientos',
+        'honors.award1.title': 'Instructor Taller Xamarin.Android',
+        'honors.award1.org': 'ITNL — XXV Simposium Internacional ISC',
+        'honors.award2.title': 'Instructor Taller Apps con XAML',
+        'honors.award2.org': 'ITNL — XXIV Simposium Internacional ISC',
+        'honors.award3.title': 'Instructor Taller POO en C#',
+        'honors.award3.org': 'ITNL — XXII Simposium Internacional ISC',
+        'lang.title': 'Idiomas',
+        'lang.native': 'Nativo',
+        'lang.professional': 'Profesional',
+        'contact.title': 'Contacto', 'contact.subtitle': 'Hablemos de tu próximo proyecto',
+        'contact.email': 'Correo', 'contact.cv': 'Descargar CV',
+        'footer.made': 'Hecho con', 'footer.dotnet': 'y .NET'
+      }
+    };
+
+    function setLang(lang) {
+      document.documentElement.setAttribute('data-lang', lang);
+      localStorage.setItem('lang', lang);
+      document.getElementById('langEn').classList.toggle('active', lang === 'en');
+      document.getElementById('langEs').classList.toggle('active', lang === 'es');
+      const dict = i18n[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) el.textContent = dict[key];
+      });
+    }
+
+    function setTheme(theme) {
+      document.documentElement.classList.toggle('dark', theme === 'dark');
+      localStorage.setItem('theme', theme);
+      const btn = document.getElementById('themeToggle');
+      btn.innerHTML = theme === 'dark'
+        ? '<i class="fa-solid fa-moon"></i>'
+        : '<i class="fa-solid fa-sun"></i>';
+    }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.contains('dark');
+      setTheme(isDark ? 'light' : 'dark');
+    }
+
+    const savedLang = localStorage.getItem('lang') || 'en';
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    setLang(savedLang);
+    setTheme(savedTheme);
+
+    document.getElementById('langEn').addEventListener('click', () => setLang('en'));
+    document.getElementById('langEs').addEventListener('click', () => setLang('es'));
+    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    document.querySelectorAll('nav a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
 </body>
-
 </html>
