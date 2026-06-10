@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aprende LSM - Lengua de Señas Mexicana</title>
+  <meta name="description" content="Catálogo interactivo para aprender las señas más usadas de la Lengua de Señas Mexicana (LSM). Busca palabras y descubre cómo se expresan en LSM.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+  <header class="header" role="banner">
+    <div class="container header__inner">
+      <span class="header__icon" aria-hidden="true">🤟</span>
+      <div>
+        <h1 class="header__title">Aprende LSM</h1>
+        <p class="header__subtitle">Lengua de Señas Mexicana</p>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" role="main">
+    <section class="hero" aria-label="Introducción">
+      <div class="container">
+        <p class="hero__text">Explora el catálogo de señas básicas de la Lengua de Señas Mexicana. Busca cualquier palabra y descubre su seña correspondiente.</p>
+      </div>
+    </section>
+
+    <section class="search-section container" aria-label="Buscador de señas">
+      <div class="search__wrapper">
+        <label for="search-input" class="sr-only">Buscar palabra o seña</label>
+        <div class="search__box">
+          <span class="search__icon" aria-hidden="true">🔍</span>
+          <input
+            type="search"
+            id="search-input"
+            class="search__input"
+            placeholder="Busca una palabra..."
+            autocomplete="off"
+            aria-describedby="search-hint"
+          >
+          <button type="button" class="search__clear" id="search-clear" aria-label="Limpiar búsqueda" hidden>
+            ✕
+          </button>
+        </div>
+        <span id="search-hint" class="search__hint">
+          Escribe una palabra para filtrar señas por palabra o etiqueta relacionada
+        </span>
+        <output role="status" class="search__status" id="search-status" aria-live="polite" aria-atomic="true"></output>
+      </div>
+    </section>
+
+    <section class="categories-section container" aria-label="Filtrar por categoría">
+      <h2 class="section__title">Categorías</h2>
+      <div class="categories__list" id="categories-list" role="tablist" aria-label="Categorías de señas"></div>
+    </section>
+
+    <section class="gallery-section container" aria-label="Catálogo de señas">
+      <h2 class="section__title">Señas</h2>
+      <div class="gallery__grid" id="signs-grid" role="list"></div>
+    </section>
+  </main>
+
+  <div class="modal-overlay" id="modal-overlay" role="presentation" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+      <div class="modal__header">
+        <h2 class="modal__title" id="modal-title"></h2>
+        <button type="button" class="modal__close" id="modal-close" aria-label="Cerrar detalle de la seña">✕</button>
+      </div>
+      <div class="modal__body" id="modal-body"></div>
+    </div>
+  </div>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container footer__inner">
+      <p>Aprende LSM — Proyecto educativo de código abierto</p>
+      <p>Las descripciones son ilustrativas. Consulta con expertos para un aprendizaje formal.</p>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
