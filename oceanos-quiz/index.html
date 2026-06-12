@@ -392,6 +392,17 @@
     position: relative;
     z-index: 2;
   }
+  .slider-fish {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    font-size: 30px;
+    z-index: 3;
+    transition: left 0.08s ease;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.45));
+    line-height: 1;
+  }
   .slider-track input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
@@ -404,6 +415,7 @@
     box-shadow: 0 3px 15px rgba(0,0,0,0.3);
     transition: 0.15s;
     position: relative;
+    opacity: 0.65;
   }
   .slider-track input[type="range"]::-webkit-slider-thumb:hover {
     transform: scale(1.1);
@@ -503,6 +515,32 @@
     box-shadow: 0 0 20px var(--accent-glow);
   }
   .gender-btn .gender-emoji { font-size: 2em; display: block; margin-bottom: 4px; }
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    font-weight: 700;
+    font-size: 0.9em;
+  }
+  .toggle-btn {
+    background: #4caf50;
+    border: none;
+    color: #fff;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.85em;
+    padding: 6px 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.25s;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .toggle-btn.off {
+    background: #666;
+  }
+  .toggle-btn:hover { transform: scale(1.05); }
 
   /* ===== FEEDBACK ===== */
   .feedback {
@@ -692,6 +730,63 @@
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.05); }
   }
+
+
+  /* ===== TIMER BAR ===== */
+  .timer-container {
+    width: 100%;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .timer-bar {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.3s linear;
+    width: 100%;
+  }
+  .timer-bar.urgent { background: #f44336; }
+  .timer-bar.normal { background: #4caf50; }
+
+  /* ===== STUDY MINI QUIZ ===== */
+  .study-quiz-area {
+    margin-top: 16px;
+    padding: 16px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .study-quiz-area .sq-fact {
+    font-size: 1em;
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+  .study-quiz-area .sq-options {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .study-quiz-area .sq-btn {
+    background: rgba(255,255,255,0.08);
+    border: 2px solid rgba(255,255,255,0.15);
+    border-radius: 14px;
+    padding: 10px 16px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: 0.25s;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    color: #fff;
+  }
+  .study-quiz-area .sq-btn:hover { background: rgba(255,255,255,0.15); transform: scale(1.05); }
+  .study-quiz-area .sq-btn.sq-correct { border-color: #4caf50; background: rgba(76,175,80,0.2); }
+  .study-quiz-area .sq-btn.sq-wrong { border-color: #f44336; background: rgba(244,67,54,0.2); }
+  .study-quiz-area .sq-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
+  .study-quiz-area .sq-result { font-weight: 700; margin-top: 10px; font-size: 0.95em; }
+  .study-quiz-area .sq-score { font-size: 0.85em; opacity: 0.7; margin-top: 6px; }
 
   /* ===== HIDE ===== */
   .hidden { display: none !important; }
@@ -893,6 +988,87 @@
     opacity: 0.95;
   }
 
+  /* ===== REDUCED MOTION ===== */
+  @media (prefers-reduced-motion: reduce) {
+    .bubble, .fish-deco, .confetti-piece, .quiz-card, .study-detail, .card {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
+  /* ===== FOCUS VISIBLE ===== */
+  :focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+  }
+  button:focus-visible, select:focus-visible, input:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* ===== TIMER BAR ===== */
+  .timer-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 6px auto;
+    height: 8px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .timer-bar {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.2s linear, background 0.4s;
+  }
+  .timer-bar.normal { background: var(--accent); }
+  .timer-bar.urgent { background: #e74c3c; animation: pulse 0.5s infinite; }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+
+  /* ===== STUDY MINI-QUIZ ===== */
+  .study-quiz-area {
+    background: rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 10px 0;
+  }
+  .sq-fact {
+    background: rgba(255,255,255,0.08);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    font-size: 0.9em;
+    line-height: 1.4;
+    text-align: center;
+  }
+  .sq-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .sq-btn {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85em;
+    transition: 0.25s;
+    text-align: center;
+  }
+  .sq-btn:hover { background: rgba(255,255,255,0.18); }
+  .sq-btn.sq-correct { background: #27ae60; border-color: #2ecc71; }
+  .sq-btn.sq-wrong { background: #c0392b; border-color: #e74c3c; }
+  .sq-btn:disabled { opacity: 0.6; cursor: default; }
+  .sq-result { text-align: center; font-weight: 700; min-height: 1.4em; margin-bottom: 6px; font-size: 0.95em; }
+  .sq-score { text-align: center; font-size: 0.8em; opacity: 0.7; }
+
   /* ===== RESPONSIVE ===== */
   @media (max-width: 500px) {
     .wave-header h1 { font-size: 1.5em; }
@@ -907,23 +1083,24 @@
       width: 36px;
       height: 36px;
     }
+    .slider-fish { font-size: 24px; }
   }
 </style>
 </head>
 <body>
 
 <!-- BUBBLES -->
-<div class="bubbles" id="bubbles"></div>
+<div class="bubbles" id="bubbles" aria-hidden="true"></div>
 
 <!-- FISH DECORATION -->
-<div class="fish-deco" style="top:8%;animation-duration:35s;animation-delay:-3s;">🦑</div>
-<div class="fish-deco" style="top:15%;animation-duration:25s;animation-delay:0s;">🐟</div>
-<div class="fish-deco" style="top:25%;animation-duration:40s;animation-delay:-5s;">🦀</div>
-<div class="fish-deco" style="top:45%;animation-duration:30s;animation-delay:-8s;">🐠</div>
-<div class="fish-deco" style="top:55%;animation-duration:28s;animation-delay:-10s;">🐬</div>
-<div class="fish-deco" style="top:70%;animation-duration:22s;animation-delay:-15s;">🐡</div>
-<div class="fish-deco" style="top:82%;animation-duration:32s;animation-delay:-18s;">🐢</div>
-<div class="fish-deco" style="top:92%;animation-duration:26s;animation-delay:-12s;">🐋</div>
+<div class="fish-deco" style="top:8%;animation-duration:35s;animation-delay:-3s;" aria-hidden="true">🦑</div>
+<div class="fish-deco" style="top:15%;animation-duration:25s;animation-delay:0s;" aria-hidden="true">🐟</div>
+<div class="fish-deco" style="top:25%;animation-duration:40s;animation-delay:-5s;" aria-hidden="true">🦀</div>
+<div class="fish-deco" style="top:45%;animation-duration:30s;animation-delay:-8s;" aria-hidden="true">🐠</div>
+<div class="fish-deco" style="top:55%;animation-duration:28s;animation-delay:-10s;" aria-hidden="true">🐬</div>
+<div class="fish-deco" style="top:70%;animation-duration:22s;animation-delay:-15s;" aria-hidden="true">🐡</div>
+<div class="fish-deco" style="top:82%;animation-duration:32s;animation-delay:-18s;" aria-hidden="true">🐢</div>
+<div class="fish-deco" style="top:92%;animation-duration:26s;animation-delay:-12s;" aria-hidden="true">🐋</div>
 
 <!-- HEADER -->
 <div class="wave-header">
@@ -951,6 +1128,7 @@
       <div>🎯 <strong>Preguntas</strong> para poner a prueba tu conocimiento</div>
       <div>⭐ ¡Cada respuesta correcta suma puntos!</div>
       <div>📖 Si te equivocas, te explicamos para que aprendas</div>
+      <div id="highScoreDisplay" style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.1);">🏆 <strong>Mejor puntuación:</strong> <span id="highScoreValue">0</span></div>
     </div>
     <div style="margin-bottom:16px;font-size:0.9em;opacity:0.8;">
       <span class="ocean-color" style="background:#1565c0;"></span>Pacífico
@@ -988,6 +1166,14 @@
         </button>
       </div>
 
+      <div class="toggle-row">
+        <span>⏳ Avance automático</span>
+        <button class="toggle-btn" id="autoAdvanceToggle" onclick="toggleAutoAdvance()">ON</button>
+      </div>
+      <div class="toggle-row">
+        <span>⏱️ Modo contrarreloj (20s)</span>
+        <button class="toggle-btn" id="timerToggle" onclick="toggleTimerMode()">OFF</button>
+      </div>
       <div class="text-center">
         <button class="btn-primary" id="startQuizBtn" disabled onclick="startQuiz()">
           🌊 ¡A JUGAR!
@@ -1008,6 +1194,18 @@
       <div id="studyGrid" class="study-grid"></div>
       <div id="studyDetail" class="hidden"></div>
 
+      <!-- Mini adivinanza interactiva -->
+      <div class="study-quiz-area" id="studyQuizArea">
+        <div style="text-align:center;font-weight:800;margin-bottom:8px;font-size:0.95em;">🎯 Adivina el océano</div>
+        <div class="sq-fact" id="sqFact">Toca "Nuevo dato" para empezar</div>
+        <div class="sq-options" id="sqOptions"></div>
+        <div class="sq-result" id="sqResult"></div>
+        <div class="sq-score" id="sqScore">Aciertos: 0 · Intentos: 0</div>
+        <div class="text-center" style="margin-top:10px;">
+          <button class="btn-secondary" onclick="studyNextFact()" style="font-size:0.85em;padding:8px 18px;">🎲 Nuevo dato</button>
+        </div>
+      </div>
+
       <!-- Ranking visual -->
       <div style="margin:12px 0;">
         <div style="text-align:center;font-weight:700;margin-bottom:8px;font-size:0.9em;opacity:0.8;">🏆 Ranking de océanos (mayor a menor)</div>
@@ -1015,7 +1213,7 @@
       </div>
 
       <div class="text-center" style="margin-top:12px;">
-        <button class="btn-primary continue-btn" onclick="showProfileForm()" style="font-size:1.1em;">🌊 ¡A JUGAR!</button>
+        <button class="btn-primary continue-btn" onclick="goToPlayFromStudy()" style="font-size:1.1em;">🌊 ¡A JUGAR!</button>
         <br><br>
         <button class="btn-secondary" onclick="showStartFromStudy()">🏠 Volver al inicio</button>
       </div>
@@ -1028,7 +1226,8 @@
       <span id="roundLabel">🌎 Ronda 1</span>
       <span class="score" id="scoreDisplay">⭐ 0</span>
     </div>
-    <div class="progress-dots" id="progressDots"></div>
+    <div class="progress-dots" id="progressDots" role="progressbar" aria-label="Progreso del quiz"></div>
+    <div class="timer-container hidden" id="timerContainer"><div class="timer-bar normal" id="timerBar"></div></div>
     <div id="questionContainer"></div>
   </div>
 
@@ -1045,8 +1244,10 @@
 // ===== PLAYER DATA =====
 let player = { name: '', gender: '' };
 let selectedGender = '';
-let gameStarted = false;
 let autoAdvanceTimer = null;
+let timerMode = false;
+let timerSeconds = 20;
+let questionTimer = null;
 
 function selectGender(el, gender) {
   selectedGender = gender;
@@ -1061,9 +1262,7 @@ function checkProfileReady() {
 }
 
 // Listen for name input changes
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('nameInput').addEventListener('input', checkProfileReady);
-});
+document.getElementById('nameInput').addEventListener('input', checkProfileReady);
 
 function showProfileForm() {
   document.getElementById('startScreen').classList.add('hidden');
@@ -1073,10 +1272,15 @@ function showProfileForm() {
 
 // ===== STUDY MODE =====
 function showStudy() {
+  studyQuizState = { correct: 0, total: 0 };
   document.getElementById('startScreen').classList.add('hidden');
   document.getElementById('studyScreen').classList.remove('hidden');
   renderStudyGrid();
   renderRankingPodium();
+  document.getElementById('sqResult').textContent = '';
+  document.getElementById('sqOptions').innerHTML = '';
+  document.getElementById('sqFact').textContent = 'Toca "Nuevo dato" para empezar';
+  document.getElementById('sqScore').textContent = 'Aciertos: 0 · Intentos: 0';
 }
 
 function showStartFromStudy() {
@@ -1154,6 +1358,15 @@ function renderRankingPodium() {
 }
 
 // ===== RANDOM OCEAN FACT =====
+function getHighScore() {
+  return parseInt(safeLSGet('oceanos-highscore')) || 0;
+}
+function updateHighScore(score) {
+  const current = getHighScore();
+  if (score > current) safeLSSet('oceanos-highscore', String(score));
+  return Math.max(score, current);
+}
+
 function getRandomOceanFact() {
   const oceans = Object.values(OCEAN_DATA);
   const ocean = oceans[Math.floor(Math.random() * oceans.length)];
@@ -1162,13 +1375,23 @@ function getRandomOceanFact() {
     ocean.curiosidad,
     ...ocean.datosImportantes
   ].filter(Boolean);
-  const fact = facts[Math.floor(Math.random() * facts.length)];
+  const fact = facts.length > 0
+    ? facts[Math.floor(Math.random() * facts.length)]
+    : '¡Los océanos cubren más del 70% de la superficie de la Tierra!';
   return { fact, ocean: ocean.nombre, emoji: ocean.emoji };
+}
+function sabiasQueHTML(fact, ocean) {
+  return '<div class="study-curiosidad" style="margin-bottom:12px;text-align:left;font-size:0.88em;">💡 <strong>¿Sabías que?</strong> (Océano ' + ocean + ')<br>' + fact + '</div>';
+}
+function streakMsgHTML() {
+  return state.streak >= 3
+    ? '<div style="text-align:center;margin-bottom:8px;font-size:1.1em;">🔥 ¡Llevas ' + state.streak + ' seguidas, ' + escapeHTML(player.name) + '!</div>'
+    : '';
 }
 
 // ===== QUESTIONS — cargadas desde js/questions.js =====
 let questions = [];
-const matchingQuestion = MATCHING_QUESTION;
+let matchingQuestion = MATCHING_QUESTION;
 
 // ===== STATE =====
 let state = {
@@ -1176,11 +1399,25 @@ let state = {
   score: 0,
   answers: [],
   totalQuestions: 0,
-  answered: false
+  answered: false,
+  streak: 0,
 };
 
 let audioCtx = null;
 let muted = false;
+let autoAdvanceEnabled = true;
+
+function safeLSGet(key, fallback) {
+  try { return localStorage.getItem(key); } catch(e) { return null; }
+}
+function safeLSSet(key, val) {
+  try { localStorage.setItem(key, val); } catch(e) { /* private browsing */ }
+}
+function escapeHTML(str) {
+  const div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+}
 
 // ===== THEMES =====
 const THEMES = [
@@ -1209,16 +1446,16 @@ const THEMES = [
     emoji: '🧜‍♀️',
     name: 'Sirena Mágica',
     colors: {
-      '--body-grad': 'linear-gradient(180deg, #2d0a28 0%, #5c1a4a 30%, #8e3a6b 60%, #c94d8c 100%)',
-      '--header-grad': 'linear-gradient(135deg, #8e24aa, #c94d8c)',
+      '--body-grad': 'linear-gradient(180deg, #2d0a28 0%, #5c1a4a 30%, #8e3a6b 60%, #b03a6e 100%)',
+      '--header-grad': 'linear-gradient(135deg, #8e24aa, #b03a6e)',
       '--primary-grad': 'linear-gradient(135deg, #ec407a, #d81b60)',
       '--primary-shadow': 'rgba(236,64,122,0.4)',
       '--primary-shadow-hover': 'rgba(236,64,122,0.5)',
-      '--accent': '#f48fb1',
-      '--accent-light': '#f8bbd0',
-      '--accent-glow': 'rgba(244,143,177,0.15)',
-      '--accent-bg': 'rgba(244,143,177,0.2)',
-      '--slider-grad': 'linear-gradient(90deg, #8e24aa, #ab47bc, #ce93d8, #ec407a, #f48fb1)',
+      '--accent': '#ec407a',
+      '--accent-light': '#f48fb1',
+      '--accent-glow': 'rgba(236,64,122,0.15)',
+      '--accent-bg': 'rgba(236,64,122,0.2)',
+      '--slider-grad': 'linear-gradient(90deg, #8e24aa, #ab47bc, #ce93d8, #ec407a, #d81b60)',
       '--wave-fill-1': '#2d0a28',
       '--wave-fill-2': '#5c1a4a',
       '--text-shadow-color': '#2d0a28',
@@ -1296,7 +1533,7 @@ function applyTheme(themeId) {
     root.style.setProperty(prop, val);
   });
   currentTheme = themeId;
-  localStorage.setItem('oceanos-theme', themeId);
+  safeLSSet('oceanos-theme', themeId);
   // Update active button
   document.querySelectorAll('.theme-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.theme === themeId);
@@ -1307,7 +1544,7 @@ function applyTheme(themeId) {
 }
 
 function loadTheme() {
-  const saved = localStorage.getItem('oceanos-theme') || 'ocean';
+  const saved = safeLSGet('oceanos-theme') || 'ocean';
   applyTheme(saved);
 }
 
@@ -1326,11 +1563,24 @@ function init() {
   createBubbles();
   renderThemePicker();
   loadTheme();
-  if (localStorage.getItem('oceanos-muted') === '1') {
+  if (safeLSGet('oceanos-muted') === '1') {
     muted = true;
     document.getElementById('muteBtn').textContent = '🔇';
     document.getElementById('muteBtn').title = 'Sonido apagado';
   }
+  if (safeLSGet('oceanos-auto-advance') === '0') {
+    autoAdvanceEnabled = false;
+    const advBtn = document.getElementById('autoAdvanceToggle');
+    if (advBtn) { advBtn.textContent = 'OFF'; advBtn.className = 'toggle-btn off'; }
+  }
+  if (safeLSGet('oceanos-timer-mode') === '1') {
+    timerMode = true;
+    const tBtn = document.getElementById('timerToggle');
+    if (tBtn) { tBtn.textContent = 'ON'; tBtn.className = 'toggle-btn'; }
+  }
+  const hs = getHighScore();
+  const hsEl = document.getElementById('highScoreValue');
+  if (hsEl) hsEl.textContent = hs + '/' + (QUIZ_CONFIG.questionsPerGame + 1);
   document.getElementById('startScreen').classList.remove('hidden');
   document.getElementById('profileScreen').classList.add('hidden');
   document.getElementById('studyScreen').classList.add('hidden');
@@ -1386,7 +1636,27 @@ function toggleMute() {
   const btn = document.getElementById('muteBtn');
   btn.textContent = muted ? '🔇' : '🔊';
   btn.title = muted ? 'Sonido apagado' : 'Encender / Apagar sonido';
-  localStorage.setItem('oceanos-muted', muted ? '1' : '0');
+  safeLSSet('oceanos-muted', muted ? '1' : '0');
+}
+
+function toggleAutoAdvance() {
+  autoAdvanceEnabled = !autoAdvanceEnabled;
+  const btn = document.getElementById('autoAdvanceToggle');
+  if (btn) {
+    btn.textContent = autoAdvanceEnabled ? 'ON' : 'OFF';
+    btn.className = 'toggle-btn' + (autoAdvanceEnabled ? '' : ' off');
+  }
+  safeLSSet('oceanos-auto-advance', autoAdvanceEnabled ? '1' : '0');
+}
+
+function toggleTimerMode() {
+  timerMode = !timerMode;
+  const btn = document.getElementById('timerToggle');
+  if (btn) {
+    btn.textContent = timerMode ? 'ON' : 'OFF';
+    btn.className = 'toggle-btn' + (timerMode ? '' : ' off');
+  }
+  safeLSSet('oceanos-timer-mode', timerMode ? '1' : '0');
 }
 
 function createBubbles() {
@@ -1403,14 +1673,21 @@ function createBubbles() {
   }
 }
 
+function goToPlayFromStudy() {
+  document.getElementById('studyScreen').classList.add('hidden');
+  if (player.name && player.gender) {
+    startQuiz();
+  } else {
+    showProfileForm();
+  }
+}
+
 // ===== START =====
 function startQuiz() {
   const name = document.getElementById('nameInput').value.trim();
   player.name = name;
   player.gender = selectedGender;
 
-  // Hide study button permanently after first game
-  gameStarted = true;
   document.getElementById('studyBtn').style.display = 'none';
 
   // Show name badge in header
@@ -1420,12 +1697,14 @@ function startQuiz() {
 
   // Build dynamic questions from external pool
   questions = buildQuizQuestions();
+  matchingQuestion = MATCHING_QUESTIONS[Math.floor(Math.random() * MATCHING_QUESTIONS.length)];
   state.totalQuestions = questions.length + 1;
 
   state.currentIndex = 0;
   state.score = 0;
   state.answers = [];
   state.answered = false;
+  state.streak = 0;
 
   document.getElementById('startScreen').classList.add('hidden');
   document.getElementById('profileScreen').classList.add('hidden');
@@ -1439,7 +1718,7 @@ function startQuiz() {
 // ===== GREETING HELPER =====
 function greet(name) {
   const emojis = ['🌟', '✨', '👏', '🎉', '💪', '🔥', '⭐'];
-  return emojis[Math.floor(Math.random() * emojis.length)] + ' ¡' + name + '!';
+  return emojis[Math.floor(Math.random() * emojis.length)] + ' ¡' + escapeHTML(name) + '!';
 }
 
 function encouragingPhrase(correct) {
@@ -1530,7 +1809,7 @@ function renderQuestion() {
     html += renderSlider(q);
   }
 
-  html += '<div class="feedback" id="feedback"></div>';
+  html += '<div class="feedback" id="feedback" role="alert" aria-live="polite"></div>';
   html += '<div class="text-center mt-12" id="continueArea"></div>';
   html += '</div>';
   container.innerHTML = html;
@@ -1539,13 +1818,18 @@ function renderQuestion() {
   if (q.type === 'slider') {
     initSlider(q);
   }
+  // Timer only for multiple/truefalse (not slider/matching)
+  if (q.type !== 'slider') {
+    clearTimer();
+    startTimer();
+  }
 }
 
 function getRoundName(r) {
   const names = {
     1: 'Opción Múltiple',
     2: 'Verdadero o Falso',
-    3: '🤪 Slider Locura',
+    3: '🎯 Estimación',
     4: 'Adivina el Océano',
     5: 'Relaciona'
   };
@@ -1571,7 +1855,8 @@ function selectOption(btn, idx) {
     : '😅 ' + phrase + ' ' + name + ', esa no es la correcta.';
   showFeedback(correct, msg, q.explanation);
 
-  if (correct) state.score++;
+  if (correct) { state.score++; state.streak++; }
+  else { state.streak = 0; }
   state.answers.push(correct);
   updateProgress(correct ? 'correct' : 'wrong');
   playSound(correct ? 'correct' : 'wrong');
@@ -1601,7 +1886,8 @@ function selectTF(btn, val) {
     : '🤔 ' + phrase + ' ' + name + '. ¡Lee bien la explicación!';
   showFeedback(correct, msg, q.explanation);
 
-  if (correct) state.score++;
+  if (correct) { state.score++; state.streak++; }
+  else { state.streak = 0; }
   state.answers.push(correct);
   updateProgress(correct ? 'correct' : 'wrong');
   playSound(correct ? 'correct' : 'wrong');
@@ -1613,7 +1899,8 @@ function renderSlider(q) {
   let html = '<div class="slider-container">';
   html += '<div class="slider-labels"><span>' + q.sliderMin + '</span><span>' + q.sliderMax + '</span></div>';
   html += '<div class="slider-track">';
-  html += '<input type="range" id="sliderInput" min="' + q.sliderMin + '" max="' + q.sliderMax + '" step="' + q.sliderStep + '" value="' + Math.round((q.sliderMin + q.sliderMax) / 2) + '">';
+  html += '<input type="range" id="sliderInput" min="' + q.sliderMin + '" max="' + q.sliderMax + '" step="' + q.sliderStep + '" value="' + Math.round((q.sliderMin + q.sliderMax) / 2) + '" aria-label="Desliza para responder">';
+  html += '<span class="slider-fish" id="sliderFish">🐟</span>';
   html += '</div>';
   html += '<div class="text-center">';
   html += '<span class="slider-value" id="sliderValue">' + Math.round((q.sliderMin + q.sliderMax) / 2) + '</span>';
@@ -1627,7 +1914,7 @@ function renderSlider(q) {
     });
     html += '</div>';
   }
-  html += '<div class="slider-hint">🐟 ¡Desliza el pececito dorado para responder!</div>';
+  html += '<div class="slider-hint">🐟 ¡Atrapa al pez y deslízalo para responder!</div>';
   html += '<div class="text-center mt-12">';
   html += '<button class="btn-primary btn-warning" id="sliderSubmitBtn" onclick="checkSlider()">🎯 ¡RESPONDER!</button>';
   html += '</div>';
@@ -1639,10 +1926,13 @@ function initSlider(q) {
   const input = document.getElementById('sliderInput');
   const display = document.getElementById('sliderValue');
   const emojiTrack = document.getElementById('sliderEmojiTrack');
+  const fish = document.getElementById('sliderFish');
 
   if (input) {
     input.addEventListener('input', function() {
       display.textContent = this.value;
+      const pct = (this.value - q.sliderMin) / (q.sliderMax - q.sliderMin) * 100;
+      if (fish) fish.style.left = pct + '%';
       if (emojiTrack && q.sliderEmojis) {
         const idx = Math.round((this.value - q.sliderMin) / (q.sliderMax - q.sliderMin) * (q.sliderEmojis.length - 1));
         emojiTrack.querySelectorAll('span').forEach(el => el.classList.remove('active'));
@@ -1650,8 +1940,8 @@ function initSlider(q) {
         if (target) target.classList.add('active');
       }
     });
-    // Trigger initial
-    input.dispatchEvent(new Event('input'));
+    // Trigger initial — use small delay so layout is settled
+    requestAnimationFrame(() => input.dispatchEvent(new Event('input')));
   }
 }
 
@@ -1674,7 +1964,8 @@ function checkSlider() {
     : '😅 ' + phrase + ' ' + name + '. La respuesta era ' + q.sliderAnswer + ' ' + q.sliderUnit + '.';
   showFeedback(correct, msg, q.explanation);
 
-  if (correct) state.score++;
+  if (correct) { state.score++; state.streak++; }
+  else { state.streak = 0; }
   state.answers.push(correct);
   updateProgress(correct ? 'correct' : 'wrong');
   document.getElementById('scoreDisplay').textContent = '⭐ ' + state.score;
@@ -1684,6 +1975,7 @@ function checkSlider() {
 
 // ===== MATCHING =====
 function renderMatching(container) {
+  clearTimer();
   const total = state.totalQuestions;
   document.getElementById('roundLabel').textContent = '🐾 Ronda 5: Relaciona · ' + total + ' de ' + total;
   const q = matchingQuestion;
@@ -1693,8 +1985,8 @@ function renderMatching(container) {
   html += '<h2 class="question-text">' + q.question + '</h2>';
   html += '<div class="matching-area">';
 
-  const shuffledAnimals = [...q.pairs].sort(() => Math.random() - 0.5);
-  const shuffledOptions = [...q.options].sort(() => Math.random() - 0.5);
+  const shuffledAnimals = shuffleArray(q.pairs);
+  const shuffledOptions = shuffleArray(q.options);
 
   shuffledAnimals.forEach((pair, i) => {
     html += '<div class="match-row">';
@@ -1710,12 +2002,104 @@ function renderMatching(container) {
 
   html += '</div>';
   html += '<div class="text-center mt-16">';
-  html += '<button class="btn-primary" onclick="checkMatching()">🐾 ¡REVISAR RESPUESTAS!</button>';
+  html += '<button class="btn-primary" id="checkMatchBtn" onclick="checkMatching()">🐾 ¡REVISAR RESPUESTAS!</button>';
   html += '</div>';
-  html += '<div class="match-feedback" id="matchFeedback"></div>';
+  html += '<div class="match-feedback" id="matchFeedback" role="alert" aria-live="polite"></div>';
   html += '<div class="text-center mt-12" id="continueAreaMatching"></div>';
   html += '</div>';
   container.innerHTML = html;
+}
+
+// ===== HINTS =====
+
+// ===== TIMER =====
+function startTimer() {
+  clearTimer();
+  if (!timerMode) return;
+  const container = document.getElementById('timerContainer');
+  const bar = document.getElementById('timerBar');
+  if (!container || !bar) return;
+  container.classList.remove('hidden');
+  bar.className = 'timer-bar normal';
+  bar.style.width = '100%';
+  const startTime = Date.now();
+  questionTimer = setInterval(() => {
+    const elapsed = (Date.now() - startTime) / 1000;
+    const remaining = Math.max(0, timerSeconds - elapsed);
+    const pct = (remaining / timerSeconds) * 100;
+    bar.style.width = pct + '%';
+    bar.className = 'timer-bar ' + (pct < 30 ? 'urgent' : 'normal');
+    if (pct <= 0) {
+      clearTimer();
+      if (!state.answered) {
+        const q = questions[state.currentIndex];
+        if (q && q.type !== 'slider') {
+          state.answered = true;
+          state.streak = 0;
+          state.answers.push(false);
+          updateProgress('wrong');
+          if (q.type === 'multiple') {
+            document.querySelectorAll('.option-btn').forEach(b => b.classList.add('disabled'));
+          } else if (q.type === 'truefalse') {
+            document.querySelectorAll('.tf-btn').forEach(b => b.classList.add('disabled'));
+          }
+          showFeedback(false, '⏰ ¡Se acabó el tiempo ' + escapeHTML(player.name) + '! 😅', q.explanation || 'Intenta responder más rápido la próxima vez.');
+          playSound('wrong');
+          const btn = document.getElementById('sliderSubmitBtn');
+          if (btn) btn.disabled = true;
+          document.getElementById('scoreDisplay').textContent = '⭐ ' + state.score;
+          showContinueButton();
+        }
+      }
+    }
+  }, 200);
+}
+function clearTimer() {
+  if (questionTimer) { clearInterval(questionTimer); questionTimer = null; }
+  const container = document.getElementById('timerContainer');
+  if (container) container.classList.add('hidden');
+}
+
+// ===== STUDY MINI-QUIZ =====
+let studyQuizState = { correct: 0, total: 0 };
+
+function studyNextFact() {
+  const oceans = Object.values(OCEAN_DATA);
+  const allFacts = [];
+  oceans.forEach(o => {
+    o.datosImportantes.forEach(d => {
+      allFacts.push({ fact: d, ocean: o.nombre, emoji: o.emoji });
+    });
+    allFacts.push({ fact: o.sabiasQue, ocean: o.nombre, emoji: o.emoji });
+    if (o.curiosidad) allFacts.push({ fact: o.curiosidad, ocean: o.nombre, emoji: o.emoji });
+  });
+  const picked = allFacts[Math.floor(Math.random() * allFacts.length)];
+  document.getElementById('sqFact').innerHTML = '💡 ' + picked.fact;
+  document.getElementById('sqResult').textContent = '';
+  // Shuffle all ocean names, ensure correct one is among options
+  const allNames = oceans.map(o => ({ nombre: o.nombre, emoji: o.emoji }));
+  const shuffled = shuffleArray(allNames);
+  const optionsEl = document.getElementById('sqOptions');
+  optionsEl.innerHTML = shuffled.map(o =>
+    '<button class="sq-btn" data-ocean="' + o.nombre + '" onclick="studyGuess(this, \'' + picked.ocean + '\')">' + o.emoji + ' ' + o.nombre + '</button>'
+  ).join('');
+}
+
+function studyGuess(btn, correctOcean) {
+  const allBtns = document.querySelectorAll('.sq-btn');
+  allBtns.forEach(b => b.disabled = true);
+  studyQuizState.total++;
+  const guess = btn.dataset.ocean;
+  if (guess === correctOcean) {
+    btn.classList.add('sq-correct');
+    document.getElementById('sqResult').innerHTML = '✅ ¡Correcto! 🎉';
+    studyQuizState.correct++;
+  } else {
+    btn.classList.add('sq-wrong');
+    allBtns.forEach(b => { if (b.dataset.ocean === correctOcean) b.classList.add('sq-correct'); });
+    document.getElementById('sqResult').innerHTML = '❌ ¡Ups! Era ' + correctOcean;
+  }
+  document.getElementById('sqScore').textContent = 'Aciertos: ' + studyQuizState.correct + ' · Intentos: ' + studyQuizState.total;
 }
 
 function checkMatching() {
@@ -1756,11 +2140,12 @@ function checkMatching() {
     feedback.className = 'match-feedback show correct';
     feedback.style.background = 'rgba(76,175,80,0.2)';
     feedback.style.border = '2px solid #4caf50';
-    feedback.innerHTML = '🎉 ¡PERFECTO ' + player.name + '! Relacionaste todos los animales correctamente. ¡Eres ' + (player.gender === 'girl' ? 'una verdadera oceanóloga' : 'un verdadero oceanólogo') + '! 🌊🐬';
+    feedback.innerHTML = '🎉 ¡PERFECTO ' + escapeHTML(player.name) + '! Relacionaste todos los animales correctamente. ¡Eres ' + (player.gender === 'girl' ? 'una verdadera oceanóloga' : 'un verdadero oceanólogo') + '! 🌊🐬';
     state.score += 2;
+    state.streak++;
     state.answers.push(true);
     updateProgress('correct');
-    launchConfetti();
+    launchConfetti(40);
     playSound('confetti');
   } else {
     const pct = Math.round((correctCount / total) * 100);
@@ -1770,7 +2155,8 @@ function checkMatching() {
     feedback.className = 'match-feedback show wrong';
     feedback.style.background = 'rgba(244,67,54,0.2)';
     feedback.style.border = '2px solid #f44336';
-    feedback.innerHTML = '💪 ¡' + correctCount + ' de ' + total + ' bien, ' + player.name + '!<br>' + subMsg + '<br><br>📖 <em>' + q.explanation + '</em>';
+    feedback.innerHTML = '💪 ¡' + correctCount + ' de ' + total + ' bien, ' + escapeHTML(player.name) + '!<br>' + subMsg + '<br><br>📖 <em>' + q.explanation + '</em>';
+    state.streak = 0;
     state.answers.push(false);
     updateProgress('wrong');
   }
@@ -1779,29 +2165,21 @@ function checkMatching() {
   playSound(allCorrect ? 'confetti' : 'wrong');
 
   // Disable the check button properly
-  const checkBtn = document.getElementById('matchFeedback').previousElementSibling.querySelector('.btn-primary');
+  const checkBtn = document.getElementById('checkMatchBtn');
   if (checkBtn) { checkBtn.disabled = true; checkBtn.style.opacity = '0.5'; }
 
   // Show continue button in matching area
   const contArea = document.getElementById('continueAreaMatching');
   if (contArea) {
     const { fact, ocean } = getRandomOceanFact();
+    const sm = streakMsgHTML();
+    const sh = sabiasQueHTML(fact, ocean);
     if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
-    if (allCorrect) {
-      contArea.innerHTML = `
-        <div class="study-curiosidad" style="margin-bottom:12px;text-align:left;font-size:0.88em;">
-          💡 <strong>¿Sabías que?</strong> (Océano ${ocean})<br>${fact}
-        </div>
-        <div style="text-align:center;font-size:0.9em;opacity:0.7;">⏳ ¡Perfecto! Continuando...</div>
-      `;
+    if (allCorrect && autoAdvanceEnabled) {
+      contArea.innerHTML = sm + sh + '<div style="text-align:center;font-size:0.9em;opacity:0.7;">⏳ ¡Perfecto! Continuando...</div>';
       autoAdvanceTimer = setTimeout(() => nextQuestion(), 2000);
     } else {
-      contArea.innerHTML = `
-        <div class="study-curiosidad" style="margin-bottom:12px;text-align:left;font-size:0.88em;">
-          💡 <strong>¿Sabías que?</strong> (Océano ${ocean})<br>${fact}
-        </div>
-        <button class="btn-primary btn-success continue-btn" onclick="nextQuestion()">📖 CONTINUAR →</button>
-      `;
+      contArea.innerHTML = sm + sh + '<button class="btn-primary btn-success continue-btn" onclick="nextQuestion()">📖 CONTINUAR →</button>';
     }
   }
 }
@@ -1818,34 +2196,24 @@ function showFeedback(correct, msg, explanation) {
 function showContinueButton() {
   const area = document.getElementById('continueArea');
   if (!area) return;
-  const q = questions[state.currentIndex];
   const correct = state.answers[state.answers.length - 1];
   const { fact, ocean } = getRandomOceanFact();
+  const sm = streakMsgHTML();
+  const sh = sabiasQueHTML(fact, ocean);
 
   if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
 
-  if (correct) {
-    area.innerHTML = `
-      <div class="study-curiosidad" style="margin-bottom:12px;text-align:left;font-size:0.88em;">
-        💡 <strong>¿Sabías que?</strong> (Océano ${ocean})<br>
-        ${fact}
-      </div>
-      <div style="text-align:center;font-size:0.9em;opacity:0.7;">⏳ ¡Correcto! Continuando...</div>
-    `;
+  if (correct && autoAdvanceEnabled) {
+    area.innerHTML = sm + sh + '<div style="text-align:center;font-size:0.9em;opacity:0.7;">⏳ ¡Correcto! Continuando...</div>';
     autoAdvanceTimer = setTimeout(() => nextQuestion(), 2000);
   } else {
-    area.innerHTML = `
-      <div class="study-curiosidad" style="margin-bottom:12px;text-align:left;font-size:0.88em;">
-        💡 <strong>¿Sabías que?</strong> (Océano ${ocean})<br>
-        ${fact}
-      </div>
-      <button class="btn-primary btn-success continue-btn" onclick="nextQuestion()">📖 CONTINUAR →</button>
-    `;
+    area.innerHTML = sm + sh + '<button class="btn-primary btn-success continue-btn" onclick="nextQuestion()">📖 CONTINUAR →</button>';
   }
 }
 
 // ===== NEXT / RESULTS =====
 function nextQuestion() {
+  clearTimer();
   state.currentIndex++;
   if (state.currentIndex >= state.totalQuestions) {
     showResults();
@@ -1861,19 +2229,23 @@ function nextQuestion() {
 
 // ===== RESULTS =====
 function showResults() {
+  clearTimer();
   document.getElementById('quizScreen').classList.add('hidden');
   document.getElementById('resultsScreen').classList.remove('hidden');
 
   const total = state.totalQuestions;
   const displayScore = Math.min(state.score, total);
   const pct = Math.round((displayScore / total) * 100);
-  const name = player.name;
+  const name = escapeHTML(player.name);
   const isGirl = player.gender === 'girl';
+  const newRecord = updateHighScore(displayScore);
+  const highScore = getHighScore();
 
   let resultIcon, title, msg, tip, progressClass, animalsRow;
 
-  // Always launch confetti — everyone deserves celebration!
-  launchConfetti();
+  if (pct >= 90) launchConfetti(100);
+  else if (pct >= 75) launchConfetti(50);
+  else if (pct >= 50) launchConfetti(25);
 
   if (pct === 100) {
     resultIcon = '🏆';
@@ -1905,11 +2277,11 @@ function showResults() {
     animalsRow = '🐢🦑🦀🐟🐋';
   }
 
-  const oceanList = ['Pacífico', 'Atlántico', 'Índico', 'Ártico', 'Antártico'];
-  const oceanColors = ['#1565c0', '#1e88e5', '#00acc1', '#e0e0e0', '#4fc3f7'];
-  const oceanBadges = oceanList.map((o, i) =>
-    '<span class="result-ocean" style="background:' + oceanColors[i] + '40;border:1px solid ' + oceanColors[i] + '">' + o + '</span>'
-  ).join('');
+  const oceanBadges = OCEAN_RANKING.sort((a, b) => a.lugar - b.lugar).map(r => {
+    const ocean = Object.values(OCEAN_DATA).find(o => o.nombre === r.nombre);
+    const c = ocean ? ocean.color : '#fff';
+    return '<span class="result-ocean" style="background:' + c + '40;border:1px solid ' + c + '">' + r.nombre + '</span>';
+  }).join('');
 
   const container = document.getElementById('resultsContent');
   container.innerHTML = `
@@ -1922,6 +2294,8 @@ function showResults() {
       <div class="result-progress-container">
         <div class="result-progress-bar ${progressClass}" id="resultProgressBar" style="width:${pct}%"></div>
       </div>
+
+      ${newRecord ? '<div style="background:rgba(255,215,0,0.15);border:1px solid rgba(255,215,0,0.3);border-radius:12px;padding:10px;margin:10px 0;text-align:center;font-weight:800;">🏆 ¡NUEVO RÉCORD! ' + displayScore + '/' + total + '</div>' : '<div style="text-align:center;font-size:0.85em;opacity:0.6;margin:8px 0;">🏆 Récord personal: ' + highScore + '/' + total + '</div>'}
 
       <div class="result-animal-grid">${animalsRow}</div>
 
@@ -1952,11 +2326,13 @@ function showResults() {
 function restartQuiz() {
   if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
   questions = buildQuizQuestions();
+  matchingQuestion = MATCHING_QUESTIONS[Math.floor(Math.random() * MATCHING_QUESTIONS.length)];
   state.totalQuestions = questions.length + 1;
   state.currentIndex = 0;
   state.score = 0;
   state.answers = [];
   state.answered = false;
+  state.streak = 0;
   document.getElementById('resultsScreen').classList.add('hidden');
   document.getElementById('quizScreen').classList.remove('hidden');
   document.getElementById('progressDots').innerHTML = '';
@@ -1970,13 +2346,16 @@ function resetAll() {
   document.getElementById('profileScreen').classList.add('hidden');
   document.getElementById('headerNameBadge').style.display = 'none';
   document.getElementById('studyBtn').style.display = '';
+  const hsEl = document.getElementById('highScoreValue');
+  if (hsEl) hsEl.textContent = getHighScore() + '/' + (QUIZ_CONFIG.questionsPerGame + 1);
 }
 
 // ===== CONFETTI =====
-function launchConfetti() {
+function launchConfetti(count) {
   playSound('confetti');
+  count = count || 80;
   const colors = ['#f44336', '#e91e63', '#9c27b0', '#3f51b5', '#4caf50', '#ffeb3b', '#ff9800', '#42a5f5', '#f9a825'];
-  for (let i = 0; i < 80; i++) {
+  for (let i = 0; i < count; i++) {
     const piece = document.createElement('div');
     piece.className = 'confetti-piece';
     piece.style.left = Math.random() * 100 + '%';

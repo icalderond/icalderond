@@ -420,21 +420,50 @@ const ALL_QUESTIONS = [
   }
 ];
 
-// ===== MATCHING QUESTION (siempre incluida al final) =====
-const MATCHING_QUESTION = {
-  round: 5, type: 'matching', icon: '🐾',
-  question: 'Relaciona cada animal con el océano donde vive:',
-  pairs: [
-    { animal: '🐧 Pingüino', ocean: 'Antártico' },
-    { animal: '🐻‍❄️ Oso Polar', ocean: 'Ártico' },
-    { animal: '🐠 Pez Tropical', ocean: 'Índico' },
-    { animal: '🐋 Ballena', ocean: 'Pacífico' },
-    { animal: '🦈 Tiburón', ocean: 'Atlántico' }
-  ],
-  answer: ['Antártico', 'Ártico', 'Índico', 'Pacífico', 'Atlántico'],
-  options: ['Antártico', 'Ártico', 'Índico', 'Pacífico', 'Atlántico'],
-  explanation: 'Cada océano tiene animales especiales adaptados a vivir allí. ¿Sabías que las ballenas viajan por todos los océanos?'
-};
+// ===== MATCHING QUESTIONS (se selecciona una al azar) =====
+const MATCHING_QUESTIONS = [
+  {
+    round: 5, type: 'matching', icon: '🐾',
+    question: 'Relaciona cada animal con el océano donde vive:',
+    pairs: [
+      { animal: '🐧 Pingüino', ocean: 'Antártico' },
+      { animal: '🐻‍❄️ Oso Polar', ocean: 'Ártico' },
+      { animal: '🐠 Pez Tropical', ocean: 'Índico' },
+      { animal: '🐋 Ballena', ocean: 'Pacífico' },
+      { animal: '🦈 Tiburón', ocean: 'Atlántico' }
+    ],
+    options: ['Antártico', 'Ártico', 'Índico', 'Pacífico', 'Atlántico'],
+    explanation: 'Cada océano tiene animales especiales adaptados a vivir allí. ¿Sabías que las ballenas viajan por todos los océanos?'
+  },
+  {
+    round: 5, type: 'matching', icon: '🌍',
+    question: 'Relaciona cada característica con el océano correcto:',
+    pairs: [
+      { animal: '🌊 El más grande de todos', ocean: 'Pacífico' },
+      { animal: '🧊 El más pequeño y helado', ocean: 'Ártico' },
+      { animal: '🐠 El más cálido del mundo', ocean: 'Índico' },
+      { animal: '🚢 Ruta de grandes exploradores', ocean: 'Atlántico' },
+      { animal: '🐧 Rodea completamente la Antártida', ocean: 'Antártico' }
+    ],
+    options: ['Antártico', 'Ártico', 'Índico', 'Pacífico', 'Atlántico'],
+    explanation: '¡Cada océano tiene características únicas que lo hacen especial!'
+  },
+  {
+    round: 5, type: 'matching', icon: '🗺️',
+    question: 'Relaciona cada descripción geográfica con el océano que le corresponde:',
+    pairs: [
+      { animal: 'Separa América de Europa y África', ocean: 'Atlántico' },
+      { animal: 'Baña las costas de Asia, África y Australia', ocean: 'Índico' },
+      { animal: 'Se encuentra alrededor del Polo Norte', ocean: 'Ártico' },
+      { animal: 'Tiene miles de islas como Hawái y Fiji', ocean: 'Pacífico' },
+      { animal: 'Rodea el continente más austral del planeta', ocean: 'Antártico' }
+    ],
+    options: ['Antártico', 'Ártico', 'Índico', 'Pacífico', 'Atlántico'],
+    explanation: 'Cada océano baña diferentes continentes y tiene una ubicación única en el planeta.'
+  }
+];
+// Alias backwards-compatible
+const MATCHING_QUESTION = MATCHING_QUESTIONS[0];
 
 // ===== CONFIG =====
 const QUIZ_CONFIG = {
@@ -462,9 +491,6 @@ function buildQuizQuestions() {
   }
 
   let selected = pool.slice(0, count);
-
-  // Ordenar por round para mantener variedad
-  selected.sort((a, b) => a.round - b.round);
 
   return selected;
 }
