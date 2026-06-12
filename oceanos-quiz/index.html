@@ -9,9 +9,25 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
+  :root {
+    --body-grad: linear-gradient(180deg, #0a1628 0%, #0d2847 30%, #1a5276 60%, #2e86c1 100%);
+    --header-grad: linear-gradient(135deg, #0d47a1, #1565c0);
+    --primary-grad: linear-gradient(135deg, #42a5f5, #1e88e5);
+    --primary-shadow: rgba(33,150,243,0.4);
+    --primary-shadow-hover: rgba(33,150,243,0.5);
+    --accent: #42a5f5;
+    --accent-light: #64b5f6;
+    --accent-glow: rgba(66,165,245,0.15);
+    --accent-bg: rgba(66,165,245,0.2);
+    --slider-grad: linear-gradient(90deg, #0d47a1, #1565c0, #1e88e5, #42a5f5, #64b5f6);
+    --wave-fill-1: #0a1628;
+    --wave-fill-2: #0d2847;
+    --text-shadow-color: #0a1628;
+  }
+
   body {
     font-family: 'Nunito', sans-serif;
-    background: linear-gradient(180deg, #0a1628 0%, #0d2847 30%, #1a5276 60%, #2e86c1 100%);
+    background: var(--body-grad);
     min-height: 100vh;
     overflow-x: hidden;
     color: #fff;
@@ -52,13 +68,13 @@
     z-index: 1;
     text-align: center;
     padding: 30px 20px 10px;
-    background: linear-gradient(135deg, #0d47a1, #1565c0);
+    background: var(--header-grad);
     box-shadow: 0 4px 30px rgba(0,0,0,0.3);
   }
   .wave-header h1 {
     font-family: 'Fredoka One', cursive;
     font-size: 2.2em;
-    text-shadow: 3px 3px 0 #0a1628;
+    text-shadow: 3px 3px 0 var(--text-shadow-color);
     letter-spacing: 2px;
   }
   .wave-header p {
@@ -137,7 +153,7 @@
   }
   .progress-dots .dot.correct { background: #4caf50; }
   .progress-dots .dot.wrong { background: #f44336; }
-  .progress-dots .dot.active { background: #42a5f5; box-shadow: 0 0 10px #42a5f5; }
+  .progress-dots .dot.active { background: var(--accent); box-shadow: 0 0 10px var(--accent); }
 
   /* ===== CARDS ===== */
   .card {
@@ -207,12 +223,12 @@
   }
   .option-btn:hover:not(.disabled) {
     background: rgba(255,255,255,0.15);
-    border-color: #64b5f6;
+    border-color: var(--accent-light);
     transform: translateX(4px);
   }
   .option-btn.selected {
-    border-color: #42a5f5;
-    background: rgba(66,165,245,0.2);
+    border-color: var(--accent);
+    background: var(--accent-bg);
   }
   .option-btn.correct {
     border-color: #4caf50;
@@ -345,7 +361,7 @@
     width: 100%;
     height: 14px;
     border-radius: 10px;
-    background: linear-gradient(90deg, #0d47a1, #1565c0, #1e88e5, #42a5f5, #64b5f6);
+    background: var(--slider-grad);
     outline: none;
     position: relative;
     z-index: 2;
@@ -431,7 +447,7 @@
     margin-bottom: 16px;
   }
   .profile-form input[type="text"]:focus {
-    border-color: #42a5f5;
+    border-color: var(--accent);
     background: rgba(255,255,255,0.12);
   }
   .profile-form input[type="text"]::placeholder { color: rgba(255,255,255,0.35); }
@@ -456,9 +472,9 @@
   }
   .gender-btn:hover { background: rgba(255,255,255,0.12); }
   .gender-btn.selected {
-    border-color: #42a5f5;
-    background: rgba(66,165,245,0.2);
-    box-shadow: 0 0 20px rgba(66,165,245,0.15);
+    border-color: var(--accent);
+    background: var(--accent-bg);
+    box-shadow: 0 0 20px var(--accent-glow);
   }
   .gender-btn .gender-emoji { font-size: 2em; display: block; margin-bottom: 4px; }
 
@@ -492,7 +508,7 @@
   /* ===== BUTTONS ===== */
   .btn-primary {
     display: inline-block;
-    background: linear-gradient(135deg, #42a5f5, #1e88e5);
+    background: var(--primary-grad);
     border: none;
     color: #fff;
     font-family: 'Fredoka One', cursive;
@@ -501,10 +517,10 @@
     border-radius: 50px;
     cursor: pointer;
     transition: 0.25s;
-    box-shadow: 0 4px 15px rgba(33,150,243,0.4);
+    box-shadow: 0 4px 15px var(--primary-shadow);
     letter-spacing: 1px;
   }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(33,150,243,0.5); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px var(--primary-shadow-hover); }
   .btn-primary:active { transform: translateY(0); }
   .btn-primary:disabled { opacity: 0.5; cursor: default; transform: none; }
   .btn-success {
@@ -545,7 +561,7 @@
     font-family: 'Fredoka One', cursive;
     font-size: 2.8em;
     margin-bottom: 8px;
-    text-shadow: 3px 3px 0 #0a1628;
+    text-shadow: 3px 3px 0 var(--text-shadow-color);
   }
   #startScreen .subtitle {
     font-size: 1.1em;
@@ -610,7 +626,7 @@
     position: relative;
   }
   .result-progress-bar.perfect { background: linear-gradient(90deg, #4caf50, #66bb6a, #81c784); }
-  .result-progress-bar.great { background: linear-gradient(90deg, #42a5f5, #1e88e5, #1565c0); }
+  .result-progress-bar.great { background: linear-gradient(90deg, var(--accent), #1e88e5, #1565c0); }
   .result-animal-grid {
     display: flex;
     justify-content: center;
@@ -689,7 +705,7 @@
   .study-card:hover {
     background: rgba(255,255,255,0.15);
     transform: translateY(-4px);
-    border-color: #64b5f6;
+    border-color: var(--accent-light);
   }
   .study-card-emoji { font-size: 2.8em; display: block; margin-bottom: 4px; }
   .study-card-name { font-weight: 800; font-size: 1em; }
@@ -780,6 +796,77 @@
   .rank-item.rank-4 { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
   .rank-item.rank-5 { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
 
+  /* ===== THEME PICKER ===== */
+  .theme-section {
+    margin-bottom: 18px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 14px 16px;
+  }
+  .theme-label {
+    text-align: center;
+    font-size: 0.85em;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    opacity: 0.9;
+  }
+  .theme-picker {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .theme-btn {
+    border: none;
+    cursor: pointer;
+    transition: 0.25s;
+    background: transparent;
+    padding: 0;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    min-width: 58px;
+  }
+  .theme-btn .theme-circle {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 3px solid rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4em;
+    background: rgba(255,255,255,0.06);
+    transition: 0.25s;
+  }
+  .theme-btn:hover .theme-circle {
+    border-color: rgba(255,255,255,0.5);
+    transform: scale(1.12);
+  }
+  .theme-btn.active .theme-circle {
+    border-color: var(--accent);
+    box-shadow: 0 0 14px var(--accent);
+    background: var(--accent-bg);
+  }
+  .theme-btn .theme-name {
+    font-size: 0.6em;
+    font-weight: 700;
+    color: #fff;
+    opacity: 0.7;
+    transition: 0.25s;
+    text-align: center;
+    line-height: 1.15;
+  }
+  .theme-btn.active .theme-name {
+    opacity: 1;
+  }
+  .theme-btn:hover .theme-name {
+    opacity: 0.95;
+  }
+
   /* ===== RESPONSIVE ===== */
   @media (max-width: 500px) {
     .wave-header h1 { font-size: 1.5em; }
@@ -818,15 +905,15 @@
   <p>¡Demuestra cuánto sabes de los 5 océanos! 🌎</p>
 </div>
 <svg class="waves-svg" viewBox="0 0 1200 50" preserveAspectRatio="none">
-  <path d="M0,30 C200,0 400,50 600,30 C800,10 1000,50 1200,30 L1200,50 L0,50 Z" fill="#0a1628"/>
-  <path d="M0,40 C200,20 400,60 600,40 C800,20 1000,60 1200,40 L1200,50 L0,50 Z" fill="#0d2847" opacity="0.6"/>
+  <path d="M0,30 C200,0 400,50 600,30 C800,10 1000,50 1200,30 L1200,50 L0,50 Z" fill="var(--wave-fill-1)"/>
+  <path d="M0,40 C200,20 400,60 600,40 C800,20 1000,60 1200,40 L1200,50 L0,50 Z" fill="var(--wave-fill-2)" opacity="0.6"/>
 </svg>
 
 <div class="container">
 
   <!-- ===== START SCREEN ===== -->
   <div id="startScreen" class="card">
-    <span class="title-icon">🐙</span>
+    <span class="title-icon" id="startTitleIcon">🐙</span>
     <h1>¡Hola, Explorador!</h1>
     <p class="subtitle">
       ¿Estudiaste los 5 océanos?<br>
@@ -844,6 +931,11 @@
       <span class="ocean-color" style="background:#00acc1;margin-left:10px;"></span>Índico
       <span class="ocean-color" style="background:#e0e0e0;margin-left:10px;"></span>Ártico
       <span class="ocean-color" style="background:#4fc3f7;margin-left:10px;"></span>Antártico
+    </div>
+
+    <div class="theme-section">
+      <div class="theme-label">🎨 ¡ELIGE TU TEMA!</div>
+      <div class="theme-picker" id="themePicker"></div>
     </div>
     <div style="display:flex;flex-direction:column;gap:10px;align-items:center;">
       <button class="btn-primary" id="studyBtn" onclick="showStudy()" style="background:linear-gradient(135deg,#4caf50,#388e3c);box-shadow:0 4px 15px rgba(76,175,80,0.4);">📖 ESTUDIAR PRIMERO</button>
@@ -1060,9 +1152,150 @@ let state = {
   answered: false
 };
 
+// ===== THEMES =====
+const THEMES = [
+  {
+    id: 'ocean',
+    emoji: '🌊',
+    name: 'Océano Nocturno',
+    colors: {
+      '--body-grad': 'linear-gradient(180deg, #0a1628 0%, #0d2847 30%, #1a5276 60%, #2e86c1 100%)',
+      '--header-grad': 'linear-gradient(135deg, #0d47a1, #1565c0)',
+      '--primary-grad': 'linear-gradient(135deg, #42a5f5, #1e88e5)',
+      '--primary-shadow': 'rgba(33,150,243,0.4)',
+      '--primary-shadow-hover': 'rgba(33,150,243,0.5)',
+      '--accent': '#42a5f5',
+      '--accent-light': '#64b5f6',
+      '--accent-glow': 'rgba(66,165,245,0.15)',
+      '--accent-bg': 'rgba(66,165,245,0.2)',
+      '--slider-grad': 'linear-gradient(90deg, #0d47a1, #1565c0, #1e88e5, #42a5f5, #64b5f6)',
+      '--wave-fill-1': '#0a1628',
+      '--wave-fill-2': '#0d2847',
+      '--text-shadow-color': '#0a1628',
+    }
+  },
+  {
+    id: 'mermaid',
+    emoji: '🧜‍♀️',
+    name: 'Sirena Mágica',
+    colors: {
+      '--body-grad': 'linear-gradient(180deg, #2d0a28 0%, #5c1a4a 30%, #8e3a6b 60%, #c94d8c 100%)',
+      '--header-grad': 'linear-gradient(135deg, #8e24aa, #c94d8c)',
+      '--primary-grad': 'linear-gradient(135deg, #ec407a, #d81b60)',
+      '--primary-shadow': 'rgba(236,64,122,0.4)',
+      '--primary-shadow-hover': 'rgba(236,64,122,0.5)',
+      '--accent': '#f48fb1',
+      '--accent-light': '#f8bbd0',
+      '--accent-glow': 'rgba(244,143,177,0.15)',
+      '--accent-bg': 'rgba(244,143,177,0.2)',
+      '--slider-grad': 'linear-gradient(90deg, #8e24aa, #ab47bc, #ce93d8, #ec407a, #f48fb1)',
+      '--wave-fill-1': '#2d0a28',
+      '--wave-fill-2': '#5c1a4a',
+      '--text-shadow-color': '#2d0a28',
+    }
+  },
+  {
+    id: 'shark',
+    emoji: '🦈',
+    name: 'Tiburón Aventurero',
+    colors: {
+      '--body-grad': 'linear-gradient(180deg, #0a1a1a 0%, #0d3b2e 30%, #1a6b4a 60%, #2ea87a 100%)',
+      '--header-grad': 'linear-gradient(135deg, #00695c, #00897b)',
+      '--primary-grad': 'linear-gradient(135deg, #26a69a, #00897b)',
+      '--primary-shadow': 'rgba(38,166,154,0.4)',
+      '--primary-shadow-hover': 'rgba(38,166,154,0.5)',
+      '--accent': '#4db6ac',
+      '--accent-light': '#80cbc4',
+      '--accent-glow': 'rgba(77,182,172,0.15)',
+      '--accent-bg': 'rgba(77,182,172,0.2)',
+      '--slider-grad': 'linear-gradient(90deg, #004d40, #00695c, #00897b, #26a69a, #4db6ac)',
+      '--wave-fill-1': '#0a1a1a',
+      '--wave-fill-2': '#0d3b2e',
+      '--text-shadow-color': '#0a1a1a',
+    }
+  },
+  {
+    id: 'rainbow',
+    emoji: '🌈',
+    name: 'Arrecife Arcoíris',
+    colors: {
+      '--body-grad': 'linear-gradient(180deg, #1a0533 0%, #3d1a6b 30%, #6b3a8e 60%, #9c4dc9 100%)',
+      '--header-grad': 'linear-gradient(135deg, #7b1fa2, #ab47bc)',
+      '--primary-grad': 'linear-gradient(135deg, #ce93d8, #7b1fa2)',
+      '--primary-shadow': 'rgba(206,147,216,0.4)',
+      '--primary-shadow-hover': 'rgba(206,147,216,0.5)',
+      '--accent': '#ce93d8',
+      '--accent-light': '#e1bee7',
+      '--accent-glow': 'rgba(206,147,216,0.15)',
+      '--accent-bg': 'rgba(206,147,216,0.2)',
+      '--slider-grad': 'linear-gradient(90deg, #4a148c, #6a1b9a, #8e24aa, #ab47bc, #ce93d8)',
+      '--wave-fill-1': '#1a0533',
+      '--wave-fill-2': '#3d1a6b',
+      '--text-shadow-color': '#1a0533',
+    }
+  },
+  {
+    id: 'penguin',
+    emoji: '🐧',
+    name: 'Pingüino Glacial',
+    colors: {
+      '--body-grad': 'linear-gradient(180deg, #0d1b2a 0%, #1b2838 30%, #2c4c6e 60%, #5dade2 100%)',
+      '--header-grad': 'linear-gradient(135deg, #1a5276, #2980b9)',
+      '--primary-grad': 'linear-gradient(135deg, #5dade2, #2980b9)',
+      '--primary-shadow': 'rgba(93,173,226,0.4)',
+      '--primary-shadow-hover': 'rgba(93,173,226,0.5)',
+      '--accent': '#85c1e9',
+      '--accent-light': '#aed6f1',
+      '--accent-glow': 'rgba(133,193,233,0.15)',
+      '--accent-bg': 'rgba(133,193,233,0.2)',
+      '--slider-grad': 'linear-gradient(90deg, #154360, #1a5276, #2980b9, #5dade2, #85c1e9)',
+      '--wave-fill-1': '#0d1b2a',
+      '--wave-fill-2': '#1b2838',
+      '--text-shadow-color': '#0d1b2a',
+    }
+  }
+];
+
+let currentTheme = 'ocean';
+
+function applyTheme(themeId) {
+  const theme = THEMES.find(t => t.id === themeId);
+  if (!theme) return;
+  const root = document.documentElement;
+  Object.entries(theme.colors).forEach(([prop, val]) => {
+    root.style.setProperty(prop, val);
+  });
+  currentTheme = themeId;
+  localStorage.setItem('oceanos-theme', themeId);
+  // Update active button
+  document.querySelectorAll('.theme-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.theme === themeId);
+  });
+  // Update start screen title icon
+  const titleIcon = document.getElementById('startTitleIcon');
+  if (titleIcon) titleIcon.textContent = theme.emoji;
+}
+
+function loadTheme() {
+  const saved = localStorage.getItem('oceanos-theme') || 'ocean';
+  applyTheme(saved);
+}
+
+function renderThemePicker() {
+  const container = document.getElementById('themePicker');
+  container.innerHTML = THEMES.map(t => `
+    <button class="theme-btn${t.id === currentTheme ? ' active' : ''}" data-theme="${t.id}" onclick="applyTheme('${t.id}')">
+      <span class="theme-circle">${t.emoji}</span>
+      <span class="theme-name">${t.name}</span>
+    </button>
+  `).join('');
+}
+
 // ===== INIT =====
 function init() {
   createBubbles();
+  renderThemePicker();
+  loadTheme();
   document.getElementById('startScreen').classList.remove('hidden');
   document.getElementById('profileScreen').classList.add('hidden');
   document.getElementById('studyScreen').classList.add('hidden');
