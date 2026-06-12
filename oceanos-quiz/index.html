@@ -83,6 +83,24 @@
     margin-top: 4px;
     font-weight: 600;
   }
+  .mute-btn {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: 0.25s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+  }
+  .mute-btn:hover { background: rgba(255,255,255,0.25); transform: scale(1.1); }
   .waves-svg {
     display: block;
     width: 100%;
@@ -326,6 +344,14 @@
   .match-row select.correct-m { border-color: #4caf50; background: rgba(76,175,80,0.15); }
   .match-row select.wrong-m { border-color: #f44336; background: rgba(244,67,54,0.15); }
   .match-row select:disabled { opacity: 0.8; }
+  .match-correct-hint {
+    font-size: 0.8em;
+    font-weight: 700;
+    color: #4caf50;
+    white-space: nowrap;
+    min-width: 80px;
+    text-align: left;
+  }
 
   .match-feedback {
     margin-top: 14px;
@@ -901,6 +927,7 @@
 
 <!-- HEADER -->
 <div class="wave-header">
+  <button class="mute-btn" id="muteBtn" onclick="toggleMute()" title="Encender / Apagar sonido">🔊</button>
   <h1>🌊 Aventura Oceánica <span class="name-badge" id="headerNameBadge" style="display:none;"></span></h1>
   <p>¡Demuestra cuánto sabes de los 5 océanos! 🌎</p>
 </div>
@@ -1152,6 +1179,9 @@ let state = {
   answered: false
 };
 
+let audioCtx = null;
+let muted = false;
+
 // ===== THEMES =====
 const THEMES = [
   {
@@ -1296,6 +1326,11 @@ function init() {
   createBubbles();
   renderThemePicker();
   loadTheme();
+  if (localStorage.getItem('oceanos-muted') === '1') {
+    muted = true;
+    document.getElementById('muteBtn').textContent = '🔇';
+    document.getElementById('muteBtn').title = 'Sonido apagado';
+  }
   document.getElementById('startScreen').classList.remove('hidden');
   document.getElementById('profileScreen').classList.add('hidden');
   document.getElementById('studyScreen').classList.add('hidden');
@@ -1305,8 +1340,10 @@ function init() {
 
 // ===== SOUNDS =====
 function playSound(type) {
+  if (muted) return;
   try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const ctx = audioCtx;
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.connect(gain);
@@ -1342,6 +1379,14 @@ function playSound(type) {
   } catch(e) {
     // Silently fail if AudioContext not available
   }
+}
+
+function toggleMute() {
+  muted = !muted;
+  const btn = document.getElementById('muteBtn');
+  btn.textContent = muted ? '🔇' : '🔊';
+  btn.title = muted ? 'Sonido apagado' : 'Encender / Apagar sonido';
+  localStorage.setItem('oceanos-muted', muted ? '1' : '0');
 }
 
 function createBubbles() {
@@ -1421,13 +1466,18 @@ function encouragingPhrase(correct) {
 // ===== PROGRESS =====
 function renderProgress() {
   const container = document.getElementById('progressDots');
-  container.innerHTML = '';
   const total = state.totalQuestions;
-  for (let i = 0; i < total; i++) {
+  const existing = container.children.length;
+  // Only create dots that don't exist yet
+  for (let i = existing; i < total; i++) {
     const dot = document.createElement('span');
     dot.className = 'dot';
-    if (i === state.currentIndex) dot.classList.add('active');
     container.appendChild(dot);
+  }
+  // Mark current as active
+  const dots = container.children;
+  for (let i = 0; i < dots.length; i++) {
+    dots[i].classList.toggle('active', i === state.currentIndex);
   }
 }
 
@@ -1686,12 +1736,13 @@ function checkMatching() {
       correctCount++;
     } else {
       sel.classList.add('wrong-m');
-      const opt = sel.querySelector('option[value="' + expected + '"]');
-      if (opt) {
-        sel.value = expected;
-        sel.classList.remove('wrong-m');
-        sel.classList.add('correct-m');
-        sel.style.opacity = '0.7';
+      // Show correct answer next to the select
+      const row = sel.closest('.match-row');
+      const hint = document.createElement('span');
+      hint.className = 'match-correct-hint';
+      hint.textContent = '✅ ' + expected;
+      if (!row.querySelector('.match-correct-hint')) {
+        row.appendChild(hint);
       }
     }
     sel.disabled = true;
@@ -1800,7 +1851,11 @@ function nextQuestion() {
     showResults();
     return;
   }
-  renderProgress();
+  // Advance active dot without destroying existing correct/wrong marks
+  const dots = document.querySelectorAll('.progress-dots .dot');
+  for (let i = 0; i < dots.length; i++) {
+    dots[i].classList.toggle('active', i === state.currentIndex);
+  }
   renderQuestion();
 }
 
@@ -1810,8 +1865,8 @@ function showResults() {
   document.getElementById('resultsScreen').classList.remove('hidden');
 
   const total = state.totalQuestions;
-  const score = state.score;
-  const pct = Math.round((score / total) * 100);
+  const displayScore = Math.min(state.score, total);
+  const pct = Math.round((displayScore / total) * 100);
   const name = player.name;
   const isGirl = player.gender === 'girl';
 
@@ -1861,7 +1916,7 @@ function showResults() {
     <div style="animation:pop 0.5s ease">
       <div class="result-icon">${resultIcon}</div>
       <h2>${title}</h2>
-      <div class="score-big">${score}/${total}</div>
+      <div class="score-big">${displayScore}/${total}</div>
       <div style="font-size:1.2em;opacity:0.8;margin:4px 0 8px;">${pct}% de aciertos</div>
 
       <div class="result-progress-container">
@@ -1896,12 +1951,15 @@ function showResults() {
 
 function restartQuiz() {
   if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
+  questions = buildQuizQuestions();
+  state.totalQuestions = questions.length + 1;
   state.currentIndex = 0;
   state.score = 0;
   state.answers = [];
   state.answered = false;
   document.getElementById('resultsScreen').classList.add('hidden');
   document.getElementById('quizScreen').classList.remove('hidden');
+  document.getElementById('progressDots').innerHTML = '';
   renderProgress();
   renderQuestion();
 }
@@ -1911,8 +1969,7 @@ function resetAll() {
   document.getElementById('startScreen').classList.remove('hidden');
   document.getElementById('profileScreen').classList.add('hidden');
   document.getElementById('headerNameBadge').style.display = 'none';
-  // Keep study button hidden if game was already started
-  if (gameStarted) document.getElementById('studyBtn').style.display = 'none';
+  document.getElementById('studyBtn').style.display = '';
 }
 
 // ===== CONFETTI =====
