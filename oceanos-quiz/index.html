@@ -670,6 +670,116 @@
     100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
   }
 
+  /* ===== STUDY MODE ===== */
+  .study-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .study-card {
+    background: rgba(255,255,255,0.08);
+    border: 2px solid rgba(255,255,255,0.12);
+    border-radius: 18px;
+    padding: 16px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.25s;
+  }
+  .study-card:hover {
+    background: rgba(255,255,255,0.15);
+    transform: translateY(-4px);
+    border-color: #64b5f6;
+  }
+  .study-card-emoji { font-size: 2.8em; display: block; margin-bottom: 4px; }
+  .study-card-name { font-weight: 800; font-size: 1em; }
+  .study-card-rank {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.75em;
+    margin-top: 4px;
+    font-weight: 700;
+  }
+  .study-detail {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 16px;
+    animation: fadeIn 0.3s ease;
+  }
+  .study-facts {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 12px 0;
+  }
+  .study-fact {
+    background: rgba(255,255,255,0.05);
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 0.92em;
+  }
+  .study-datos {
+    margin: 12px 0;
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    font-size: 0.9em;
+  }
+  .study-datos ul { margin: 4px 0 0; padding-left: 20px; }
+  .study-datos li { margin-bottom: 4px; opacity: 0.9; }
+  .study-datos li:last-child { margin-bottom: 0; }
+  .study-curiosidad {
+    background: rgba(255,193,7,0.1);
+    border: 1px solid rgba(255,193,7,0.2);
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin: 10px 0;
+    font-size: 0.92em;
+    line-height: 1.5;
+  }
+
+  /* ===== RANKING PODIUM ===== */
+  .ranking-podium {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 8px;
+    margin: 16px 0;
+    padding: 16px 10px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .rank-item {
+    text-align: center;
+    padding: 8px 6px;
+    border-radius: 12px;
+    flex: 1;
+    max-width: 100px;
+  }
+  .rank-item .rank-num {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.6em;
+  }
+  .rank-item .rank-name {
+    font-weight: 700;
+    font-size: 0.75em;
+    margin: 2px 0;
+  }
+  .rank-item .rank-size {
+    font-size: 0.6em;
+    opacity: 0.7;
+  }
+  .rank-item.rank-1 { background: rgba(255,215,0,0.15); border: 1px solid rgba(255,215,0,0.3); }
+  .rank-item.rank-2 { background: rgba(192,192,192,0.12); border: 1px solid rgba(192,192,192,0.25); }
+  .rank-item.rank-3 { background: rgba(205,127,50,0.12); border: 1px solid rgba(205,127,50,0.25); }
+  .rank-item.rank-4 { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
+  .rank-item.rank-5 { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
+
   /* ===== RESPONSIVE ===== */
   @media (max-width: 500px) {
     .wave-header h1 { font-size: 1.5em; }
@@ -717,7 +827,7 @@
   <!-- ===== START SCREEN ===== -->
   <div id="startScreen" class="card">
     <span class="title-icon">🐙</span>
-    <h1>¡Hola, Exploradora!</h1>
+    <h1>¡Hola, Explorador!</h1>
     <p class="subtitle">
       ¿Estudiaste los 5 océanos?<br>
       ¡Vamos a descubrirlo con este quiz súper divertido! 🌊
@@ -735,7 +845,10 @@
       <span class="ocean-color" style="background:#e0e0e0;margin-left:10px;"></span>Ártico
       <span class="ocean-color" style="background:#4fc3f7;margin-left:10px;"></span>Antártico
     </div>
-    <button class="btn-primary" onclick="showProfileForm()">🌊 ¡COMENZAR AVENTURA!</button>
+    <div style="display:flex;flex-direction:column;gap:10px;align-items:center;">
+      <button class="btn-primary" id="studyBtn" onclick="showStudy()" style="background:linear-gradient(135deg,#4caf50,#388e3c);box-shadow:0 4px 15px rgba(76,175,80,0.4);">📖 ESTUDIAR PRIMERO</button>
+      <button class="btn-primary" onclick="showProfileForm()">🌊 ¡COMENZAR AVENTURA!</button>
+    </div>
   </div>
 
   <!-- ===== PROFILE SCREEN ===== -->
@@ -764,6 +877,32 @@
     </div>
   </div>
 
+  <!-- ===== STUDY SCREEN ===== -->
+  <div id="studyScreen" class="hidden">
+    <div class="card">
+      <div style="text-align:center;margin-bottom:16px;">
+        <span style="font-size:3em;">📖</span>
+        <h2 style="font-family:'Fredoka One',cursive;font-size:1.5em;margin-top:4px;">Estudia los 5 Océanos</h2>
+        <p style="opacity:0.8;">Toca cada océano para aprender sus datos importantes</p>
+      </div>
+
+      <div id="studyGrid" class="study-grid"></div>
+      <div id="studyDetail" class="hidden"></div>
+
+      <!-- Ranking visual -->
+      <div style="margin:12px 0;">
+        <div style="text-align:center;font-weight:700;margin-bottom:8px;font-size:0.9em;opacity:0.8;">🏆 Ranking de océanos (mayor a menor)</div>
+        <div class="ranking-podium" id="rankingPodium"></div>
+      </div>
+
+      <div class="text-center" style="margin-top:12px;">
+        <button class="btn-primary continue-btn" onclick="showProfileForm()" style="font-size:1.1em;">🌊 ¡A JUGAR!</button>
+        <br><br>
+        <button class="btn-secondary" onclick="showStartFromStudy()">🏠 Volver al inicio</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ===== QUIZ SCREEN ===== -->
   <div id="quizScreen" class="hidden">
     <div class="stats-bar">
@@ -787,6 +926,8 @@
 // ===== PLAYER DATA =====
 let player = { name: '', gender: '' };
 let selectedGender = '';
+let gameStarted = false;
+let autoAdvanceTimer = null;
 
 function selectGender(el, gender) {
   selectedGender = gender;
@@ -811,6 +952,101 @@ function showProfileForm() {
   document.getElementById('nameInput').focus();
 }
 
+// ===== STUDY MODE =====
+function showStudy() {
+  document.getElementById('startScreen').classList.add('hidden');
+  document.getElementById('studyScreen').classList.remove('hidden');
+  renderStudyGrid();
+  renderRankingPodium();
+}
+
+function showStartFromStudy() {
+  document.getElementById('studyScreen').classList.add('hidden');
+  document.getElementById('startScreen').classList.remove('hidden');
+}
+
+function renderStudyGrid() {
+  const grid = document.getElementById('studyGrid');
+  let html = '';
+  const entries = Object.entries(OCEAN_DATA);
+  entries.sort((a, b) => a[1].ranking - b[1].ranking);
+  entries.forEach(([id, ocean]) => {
+    html += `
+      <div class="study-card" onclick="showOceanDetail('${id}')">
+        <span class="study-card-emoji">${ocean.emoji}</span>
+        <div class="study-card-name">${ocean.nombre}</div>
+        <span class="study-card-rank">#${ocean.ranking}</span>
+      </div>
+    `;
+  });
+  grid.innerHTML = html;
+}
+
+function showOceanDetail(id) {
+  const ocean = OCEAN_DATA[id];
+  const detail = document.getElementById('studyDetail');
+  detail.className = 'study-detail';
+  detail.style.animation = 'fadeIn 0.3s ease';
+  detail.innerHTML = `
+    <div style="text-align:center;font-size:3em;margin-bottom:6px;">${ocean.emoji}</div>
+    <h3 style="font-family:'Fredoka One',cursive;font-size:1.4em;text-align:center;margin-bottom:8px;">Océano ${ocean.nombre}</h3>
+    <div style="text-align:center;margin-bottom:10px;">
+      <span class="result-ocean" style="background:${ocean.color}40;border:1px solid ${ocean.color};font-size:0.95em;">
+        🏆 #${ocean.ranking} de 5 · ${ocean.tamano}
+      </span>
+    </div>
+
+    <div class="study-facts">
+      <div class="study-fact"><strong>📏 Superficie:</strong> ${ocean.superficie}</div>
+      <div class="study-fact"><strong>🌍 Baña las costas de:</strong> ${ocean.continentes.join(', ')}</div>
+      <div class="study-fact"><strong>🐾 Animales:</strong> ${ocean.animales.join(', ')}</div>
+    </div>
+
+    <div class="study-datos">
+      <div style="font-weight:800;margin-bottom:4px;">📌 Datos importantes:</div>
+      <ul>
+        ${ocean.datosImportantes.map(d => `<li>${d}</li>`).join('')}
+      </ul>
+    </div>
+
+    <div class="study-curiosidad">
+      💡 <strong>¿Sabías que?</strong> ${ocean.sabiasQue}
+    </div>
+
+    ${ocean.curiosidad ? `<div class="study-curiosidad" style="margin-top:8px;background:rgba(100,181,246,0.1);border-color:rgba(100,181,246,0.2);">✨ <em>${ocean.curiosidad}</em></div>` : ''}
+
+    <div class="text-center" style="margin-top:12px;">
+      <button class="btn-secondary" onclick="document.getElementById('studyDetail').className='study-detail hidden';">← Ver todos los océanos</button>
+    </div>
+  `;
+  detail.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function renderRankingPodium() {
+  const podium = document.getElementById('rankingPodium');
+  const sorted = [...OCEAN_RANKING].sort((a, b) => a.lugar - b.lugar);
+  podium.innerHTML = sorted.map(r => `
+    <div class="rank-item rank-${r.lugar}">
+      <div class="rank-num">${r.lugar === 1 ? '🥇' : r.lugar === 2 ? '🥈' : r.lugar === 3 ? '🥉' : '#' + r.lugar}</div>
+      <div class="rank-name">${r.nombre}</div>
+      <div class="rank-size">${r.superficie}</div>
+    </div>
+  `).join('');
+}
+
+// ===== RANDOM OCEAN FACT =====
+function getRandomOceanFact() {
+  const oceans = Object.values(OCEAN_DATA);
+  const ocean = oceans[Math.floor(Math.random() * oceans.length)];
+  const facts = [
+    ocean.sabiasQue,
+    ocean.curiosidad,
+    ...ocean.datosImportantes
+  ].filter(Boolean);
+  const fact = facts[Math.floor(Math.random() * facts.length)];
+  return { fact, ocean: ocean.nombre, emoji: ocean.emoji };
+}
+
 // ===== QUESTIONS — cargadas desde js/questions.js =====
 let questions = [];
 const matchingQuestion = MATCHING_QUESTION;
@@ -829,8 +1065,50 @@ function init() {
   createBubbles();
   document.getElementById('startScreen').classList.remove('hidden');
   document.getElementById('profileScreen').classList.add('hidden');
+  document.getElementById('studyScreen').classList.add('hidden');
   document.getElementById('quizScreen').classList.add('hidden');
   document.getElementById('resultsScreen').classList.add('hidden');
+}
+
+// ===== SOUNDS =====
+function playSound(type) {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.type = 'sine';
+
+    if (type === 'correct') {
+      osc.frequency.setValueAtTime(523, ctx.currentTime);
+      osc.frequency.setValueAtTime(659, ctx.currentTime + 0.1);
+      osc.frequency.setValueAtTime(784, ctx.currentTime + 0.2);
+      gain.gain.setValueAtTime(0.25, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.45);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.45);
+    } else if (type === 'wrong') {
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(350, ctx.currentTime);
+      osc.frequency.setValueAtTime(250, ctx.currentTime + 0.15);
+      gain.gain.setValueAtTime(0.15, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.3);
+    } else if (type === 'confetti') {
+      osc.frequency.setValueAtTime(523, ctx.currentTime);
+      osc.frequency.setValueAtTime(659, ctx.currentTime + 0.1);
+      osc.frequency.setValueAtTime(784, ctx.currentTime + 0.2);
+      osc.frequency.setValueAtTime(1047, ctx.currentTime + 0.3);
+      gain.gain.setValueAtTime(0.2, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.5);
+    }
+  } catch(e) {
+    // Silently fail if AudioContext not available
+  }
 }
 
 function createBubbles() {
@@ -852,6 +1130,10 @@ function startQuiz() {
   const name = document.getElementById('nameInput').value.trim();
   player.name = name;
   player.gender = selectedGender;
+
+  // Hide study button permanently after first game
+  gameStarted = true;
+  document.getElementById('studyBtn').style.display = 'none';
 
   // Show name badge in header
   const badge = document.getElementById('headerNameBadge');
@@ -1009,6 +1291,7 @@ function selectOption(btn, idx) {
   if (correct) state.score++;
   state.answers.push(correct);
   updateProgress(correct ? 'correct' : 'wrong');
+  playSound(correct ? 'correct' : 'wrong');
   showContinueButton();
 }
 
@@ -1038,6 +1321,7 @@ function selectTF(btn, val) {
   if (correct) state.score++;
   state.answers.push(correct);
   updateProgress(correct ? 'correct' : 'wrong');
+  playSound(correct ? 'correct' : 'wrong');
   showContinueButton();
 }
 
@@ -1111,6 +1395,7 @@ function checkSlider() {
   state.answers.push(correct);
   updateProgress(correct ? 'correct' : 'wrong');
   document.getElementById('scoreDisplay').textContent = '⭐ ' + state.score;
+  playSound(correct ? 'correct' : 'wrong');
   showContinueButton();
 }
 
@@ -1192,6 +1477,7 @@ function checkMatching() {
     state.answers.push(true);
     updateProgress('correct');
     launchConfetti();
+    playSound('confetti');
   } else {
     const pct = Math.round((correctCount / total) * 100);
     let subMsg = '';
@@ -1206,6 +1492,7 @@ function checkMatching() {
   }
 
   document.getElementById('scoreDisplay').textContent = '⭐ ' + state.score;
+  playSound(allCorrect ? 'confetti' : 'wrong');
 
   // Disable the check button properly
   const checkBtn = document.getElementById('matchFeedback').previousElementSibling.querySelector('.btn-primary');
@@ -1214,8 +1501,24 @@ function checkMatching() {
   // Show continue button in matching area
   const contArea = document.getElementById('continueAreaMatching');
   if (contArea) {
-    const label = allCorrect ? '🌟 ¡SIGUIENTE!' : '📖 CONTINUAR';
-    contArea.innerHTML = '<button class="btn-primary ' + (allCorrect ? '' : 'btn-success') + ' continue-btn" onclick="nextQuestion()">' + label + ' →</button>';
+    const { fact, ocean } = getRandomOceanFact();
+    if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
+    if (allCorrect) {
+      contArea.innerHTML = `
+        <div class="study-curiosidad" style="margin-bottom:12px;text-align:left;font-size:0.88em;">
+          💡 <strong>¿Sabías que?</strong> (Océano ${ocean})<br>${fact}
+        </div>
+        <div style="text-align:center;font-size:0.9em;opacity:0.7;">⏳ ¡Perfecto! Continuando...</div>
+      `;
+      autoAdvanceTimer = setTimeout(() => nextQuestion(), 2000);
+    } else {
+      contArea.innerHTML = `
+        <div class="study-curiosidad" style="margin-bottom:12px;text-align:left;font-size:0.88em;">
+          💡 <strong>¿Sabías que?</strong> (Océano ${ocean})<br>${fact}
+        </div>
+        <button class="btn-primary btn-success continue-btn" onclick="nextQuestion()">📖 CONTINUAR →</button>
+      `;
+    }
   }
 }
 
@@ -1233,9 +1536,28 @@ function showContinueButton() {
   if (!area) return;
   const q = questions[state.currentIndex];
   const correct = state.answers[state.answers.length - 1];
-  const prefix = correct ? '🌟' : '📖';
-  const label = correct ? '¡SIGUIENTE!' : 'CONTINUAR';
-  area.innerHTML = '<button class="btn-primary ' + (!correct ? 'btn-success' : '') + ' continue-btn" onclick="nextQuestion()">' + prefix + ' ' + label + ' →</button>';
+  const { fact, ocean } = getRandomOceanFact();
+
+  if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
+
+  if (correct) {
+    area.innerHTML = `
+      <div class="study-curiosidad" style="margin-bottom:12px;text-align:left;font-size:0.88em;">
+        💡 <strong>¿Sabías que?</strong> (Océano ${ocean})<br>
+        ${fact}
+      </div>
+      <div style="text-align:center;font-size:0.9em;opacity:0.7;">⏳ ¡Correcto! Continuando...</div>
+    `;
+    autoAdvanceTimer = setTimeout(() => nextQuestion(), 2000);
+  } else {
+    area.innerHTML = `
+      <div class="study-curiosidad" style="margin-bottom:12px;text-align:left;font-size:0.88em;">
+        💡 <strong>¿Sabías que?</strong> (Océano ${ocean})<br>
+        ${fact}
+      </div>
+      <button class="btn-primary btn-success continue-btn" onclick="nextQuestion()">📖 CONTINUAR →</button>
+    `;
+  }
 }
 
 // ===== NEXT / RESULTS =====
@@ -1340,6 +1662,7 @@ function showResults() {
 }
 
 function restartQuiz() {
+  if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
   state.currentIndex = 0;
   state.score = 0;
   state.answers = [];
@@ -1355,10 +1678,13 @@ function resetAll() {
   document.getElementById('startScreen').classList.remove('hidden');
   document.getElementById('profileScreen').classList.add('hidden');
   document.getElementById('headerNameBadge').style.display = 'none';
+  // Keep study button hidden if game was already started
+  if (gameStarted) document.getElementById('studyBtn').style.display = 'none';
 }
 
 // ===== CONFETTI =====
 function launchConfetti() {
+  playSound('confetti');
   const colors = ['#f44336', '#e91e63', '#9c27b0', '#3f51b5', '#4caf50', '#ffeb3b', '#ff9800', '#42a5f5', '#f9a825'];
   for (let i = 0; i < 80; i++) {
     const piece = document.createElement('div');
