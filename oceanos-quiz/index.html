@@ -591,6 +591,44 @@
     font-size: 0.9em;
     font-weight: 700;
   }
+  .result-progress-container {
+    width: 100%;
+    height: 22px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 30px;
+    overflow: hidden;
+    margin: 16px 0;
+    border: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+  }
+  .result-progress-bar {
+    height: 100%;
+    border-radius: 30px;
+    transition: width 1.2s ease;
+    background: linear-gradient(90deg, #f9a825, #ff8f00, #f57c00);
+    width: 0%;
+    position: relative;
+  }
+  .result-progress-bar.perfect { background: linear-gradient(90deg, #4caf50, #66bb6a, #81c784); }
+  .result-progress-bar.great { background: linear-gradient(90deg, #42a5f5, #1e88e5, #1565c0); }
+  .result-animal-grid {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    font-size: 2.2em;
+    margin: 16px 0;
+    animation: fadeIn 0.8s ease;
+  }
+  .result-tip {
+    background: rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin: 12px 0;
+    font-size: 0.95em;
+    line-height: 1.6;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .result-tip .tip-icon { font-size: 1.5em; margin-right: 8px; }
 
   /* ===== NAME BADGE IN HEADER ===== */
   .name-badge {
@@ -655,9 +693,14 @@
 <div class="bubbles" id="bubbles"></div>
 
 <!-- FISH DECORATION -->
+<div class="fish-deco" style="top:8%;animation-duration:35s;animation-delay:-3s;">🦑</div>
 <div class="fish-deco" style="top:15%;animation-duration:25s;animation-delay:0s;">🐟</div>
+<div class="fish-deco" style="top:25%;animation-duration:40s;animation-delay:-5s;">🦀</div>
 <div class="fish-deco" style="top:45%;animation-duration:30s;animation-delay:-8s;">🐠</div>
+<div class="fish-deco" style="top:55%;animation-duration:28s;animation-delay:-10s;">🐬</div>
 <div class="fish-deco" style="top:70%;animation-duration:22s;animation-delay:-15s;">🐡</div>
+<div class="fish-deco" style="top:82%;animation-duration:32s;animation-delay:-18s;">🐢</div>
+<div class="fish-deco" style="top:92%;animation-duration:26s;animation-delay:-12s;">🐋</div>
 
 <!-- HEADER -->
 <div class="wave-header">
@@ -738,6 +781,8 @@
 
 </div>
 
+<script src="data/ocean-data.js"></script>
+<script src="js/questions.js"></script>
 <script>
 // ===== PLAYER DATA =====
 let player = { name: '', gender: '' };
@@ -766,137 +811,16 @@ function showProfileForm() {
   document.getElementById('nameInput').focus();
 }
 
-// ===== QUESTIONS DATA =====
-const questions = [
-  // ---- RONDA 1: Opción Múltiple ----
-  {
-    round: 1, type: 'multiple', icon: '🌏',
-    question: '¿Cuál es el océano más grande del mundo?',
-    options: ['Océano Atlántico', 'Océano Pacífico', 'Océano Índico', 'Océano Ártico'],
-    answer: 1,
-    explanation: '¡El Pacífico es el rey! Cubre más de 165 millones de km², ¡más que todos los continentes juntos!'
-  },
-  {
-    round: 1, type: 'multiple', icon: '🧊',
-    question: '¿Cuál es el océano más pequeño?',
-    options: ['Océano Antártico', 'Océano Índico', 'Océano Ártico', 'Océano Pacífico'],
-    answer: 2,
-    explanation: 'El Océano Ártico es el más pequeño y está en el Polo Norte. ¡Gran parte del año está congelado!'
-  },
-  {
-    round: 1, type: 'multiple', icon: '🌍',
-    question: '¿Qué océano baña las costas de Asia, África y Australia?',
-    options: ['Océano Atlántico', 'Océano Pacífico', 'Océano Antártico', 'Océano Índico'],
-    answer: 3,
-    explanation: '¡El Océano Índico recibe su nombre por la India! Sus aguas son cálidas y muy importantes para el comercio.'
-  },
-  {
-    round: 1, type: 'multiple', icon: '🏔️',
-    question: '¿En qué océano se encuentra la Fosa de las Marianas?',
-    options: ['Océano Atlántico', 'Océano Pacífico', 'Océano Índico', 'Océano Ártico'],
-    answer: 1,
-    explanation: 'La Fosa de las Marianas está en el Pacífico y es el lugar más profundo de la Tierra. ¡Más profundo que lo alto del Everest!'
-  },
-
-  // ---- RONDA 2: Verdadero o Falso ----
-  {
-    round: 2, type: 'truefalse', icon: '🧊',
-    question: 'El Océano Antártico rodea completamente la Antártida.',
-    answer: true,
-    explanation: '¡Verdadero! El Océano Antártico rodea toda la Antártida y sus corrientes ayudan a regular el clima del mundo.'
-  },
-  {
-    round: 2, type: 'truefalse', icon: '🐧',
-    question: 'El Océano Ártico se encuentra alrededor del Polo Sur.',
-    answer: false,
-    explanation: '¡Falso! El Ártico está en el Polo Norte. El que rodea el Polo Sur es el Océano Antártico. ¡No los confundas!'
-  },
-  {
-    round: 2, type: 'truefalse', icon: '🌊',
-    question: 'Más de la mitad del agua oceánica del planeta está en el Océano Pacífico.',
-    answer: true,
-    explanation: '¡Sí! El Pacífico es tan enorme que contiene más de la mitad del agua de todos los océanos del mundo.'
-  },
-  {
-    round: 2, type: 'truefalse', icon: '🚢',
-    question: 'La Cordillera Mesoatlántica se encuentra en el Océano Índico.',
-    answer: false,
-    explanation: '¡No! La Cordillera Mesoatlántica está en el Océano Atlántico. Es una gran cadena montañosa bajo el agua.'
-  },
-
-  // ---- RONDA 3: Slider divertido ----
-  {
-    round: 3, type: 'slider', icon: '📏',
-    question: 'El Océano Pacífico cubre más de 165 millones de km². ¡Desliza hasta el número correcto!',
-    sliderMin: 0, sliderMax: 200, sliderStep: 1, sliderAnswer: 165,
-    sliderUnit: 'millones de km²',
-    sliderEmojis: ['🐟','🐠','🐡','🐙','🦈'],
-    sliderTolerance: 10,
-    explanation: 'Así es: el Océano Pacífico cubre más de 165 millones de km². ¡Es tan grande que podrías meter todos los continentes dentro!'
-  },
-  {
-    round: 3, type: 'slider', icon: '🧊',
-    question: 'El Océano Ártico es el más pequeño. ¿Qué lugar ocupa entre los 5 océanos?\n(1 = más grande, 5 = más pequeño)',
-    sliderMin: 1, sliderMax: 5, sliderStep: 1, sliderAnswer: 5,
-    sliderUnit: 'lugar',
-    sliderEmojis: ['🥇','🥈','🥉','4️⃣','5️⃣'],
-    sliderTolerance: 0,
-    explanation: 'El Ártico es el número 5, el más pequeño. El ranking es: 1° Pacífico, 2° Atlántico, 3° Índico, 4° Antártico, 5° Ártico.'
-  },
-
-  // ---- RONDA 4: ¿Qué océano soy? ----
-  {
-    round: 4, type: 'multiple', icon: '🐻‍❄️',
-    question: 'Soy el océano más frío y pequeño. Estoy en el Polo Norte y gran parte de mi superficie está congelada. ¿Quién soy?',
-    options: ['Océano Antártico', 'Océano Ártico', 'Océano Atlántico', 'Océano Pacífico'],
-    answer: 1,
-    explanation: '¡Soy el Océano Ártico! Allí viven osos polares, focas y morsas. ¡A veces el sol no se oculta por meses!'
-  },
-  {
-    round: 4, type: 'multiple', icon: '🐧',
-    question: 'Rodeo completamente la Antártida y soy uno de los océanos más fríos. Mis corrientes ayudan a regular el clima del mundo. ¿Quién soy?',
-    options: ['Océano Ártico', 'Océano Pacífico', 'Océano Antártico', 'Océano Índico'],
-    answer: 2,
-    explanation: '¡Soy el Océano Antártico! En mí viven pingüinos, ballenas, focas y albatros.'
-  },
-  {
-    round: 4, type: 'multiple', icon: '🦈',
-    question: 'Soy el segundo océano más grande. Los exploradores me usaron para descubrir nuevos mundos. ¿Quién soy?',
-    options: ['Océano Pacífico', 'Océano Ártico', 'Océano Índico', 'Océano Atlántico'],
-    answer: 3,
-    explanation: '¡Soy el Océano Atlántico! Separo América de Europa y África. Fui la ruta de grandes exploradores como Colón.'
-  },
-  {
-    round: 4, type: 'multiple', icon: '🐠',
-    question: 'Tengo las aguas más cálidas y me llaman como un país de Asia. Baño las costas de África, Asia y Australia. ¿Quién soy?',
-    options: ['Océano Pacífico', 'Océano Índico', 'Océano Atlántico', 'Océano Antártico'],
-    answer: 1,
-    explanation: '¡Soy el Océano Índico! Recibo mi nombre por la India y tengo aguas cálidas llenas de peces tropicales y corales.'
-  }
-];
-
-// ===== MATCHING QUESTION =====
-const matchingQuestion = {
-  round: 5, type: 'matching', icon: '🐾',
-  question: 'Relaciona cada animal con el océano donde vive:',
-  pairs: [
-    { animal: '🐧 Pingüino', ocean: 'Antártico' },
-    { animal: '🐻‍❄️ Oso Polar', ocean: 'Ártico' },
-    { animal: '🐠 Pez Tropical', ocean: 'Índico' },
-    { animal: '🐋 Ballena', ocean: 'Pacífico' },
-    { animal: '🦈 Tiburón', ocean: 'Atlántico' }
-  ],
-  answer: ['Antártico', 'Ártico', 'Índico', 'Pacífico', 'Atlántico'],
-  options: ['Antártico', 'Ártico', 'Índico', 'Pacífico', 'Atlántico'],
-  explanation: 'Cada océano tiene animales especiales adaptados a vivir allí. ¿Sabías que las ballenas viajan por todos los océanos?'
-};
+// ===== QUESTIONS — cargadas desde js/questions.js =====
+let questions = [];
+const matchingQuestion = MATCHING_QUESTION;
 
 // ===== STATE =====
 let state = {
   currentIndex: 0,
   score: 0,
   answers: [],
-  totalQuestions: questions.length + 1,
+  totalQuestions: 0,
   answered: false
 };
 
@@ -933,6 +857,10 @@ function startQuiz() {
   const badge = document.getElementById('headerNameBadge');
   badge.textContent = '⭐ ' + player.name;
   badge.style.display = 'inline-block';
+
+  // Build dynamic questions from external pool
+  questions = buildQuizQuestions();
+  state.totalQuestions = questions.length + 1;
 
   state.currentIndex = 0;
   state.score = 0;
@@ -1259,22 +1187,29 @@ function checkMatching() {
     feedback.className = 'match-feedback show correct';
     feedback.style.background = 'rgba(76,175,80,0.2)';
     feedback.style.border = '2px solid #4caf50';
-    feedback.innerHTML = '🎉 ¡Perfecto ' + player.name + '! Relacionaste todos correctamente. ¡Eres toda una oceanóloga! 🌊';
+    feedback.innerHTML = '🎉 ¡PERFECTO ' + player.name + '! Relacionaste todos los animales correctamente. ¡Eres ' + (player.gender === 'girl' ? 'una verdadera oceanóloga' : 'un verdadero oceanólogo') + '! 🌊🐬';
     state.score += 2;
     state.answers.push(true);
     updateProgress('correct');
+    launchConfetti();
   } else {
+    const pct = Math.round((correctCount / total) * 100);
+    let subMsg = '';
+    if (pct >= 60) subMsg = '¡Casi! Solo un par de detalles. ¡La próxima lo harás perfecto! 💪';
+    else subMsg = 'No te preocupes, ' + player.name + ', con un poco de práctica dominarás los océanos. ¡Tú puedes! 🌟';
     feedback.className = 'match-feedback show wrong';
     feedback.style.background = 'rgba(244,67,54,0.2)';
     feedback.style.border = '2px solid #f44336';
-    feedback.innerHTML = '😅 Tuviste ' + correctCount + ' de ' + total + ' bien, ' + player.name + '.<br>¡Revisa las respuestas correctas arriba!<br><br>📖 <em>' + q.explanation + '</em>';
+    feedback.innerHTML = '💪 ¡' + correctCount + ' de ' + total + ' bien, ' + player.name + '!<br>' + subMsg + '<br><br>📖 <em>' + q.explanation + '</em>';
     state.answers.push(false);
     updateProgress('wrong');
   }
 
   document.getElementById('scoreDisplay').textContent = '⭐ ' + state.score;
-  document.querySelector('#matchFeedback + div .btn-primary').disabled = true;
-  document.querySelector('#matchFeedback + div .btn-primary').style.opacity = '0.5';
+
+  // Disable the check button properly
+  const checkBtn = document.getElementById('matchFeedback').previousElementSibling.querySelector('.btn-primary');
+  if (checkBtn) { checkBtn.disabled = true; checkBtn.style.opacity = '0.5'; }
 
   // Show continue button in matching area
   const contArea = document.getElementById('continueAreaMatching');
@@ -1323,29 +1258,41 @@ function showResults() {
   const score = state.score;
   const pct = Math.round((score / total) * 100);
   const name = player.name;
+  const isGirl = player.gender === 'girl';
 
-  let resultIcon, title, msg;
+  let resultIcon, title, msg, tip, progressClass, animalsRow;
+
+  // Always launch confetti — everyone deserves celebration!
+  launchConfetti();
 
   if (pct === 100) {
     resultIcon = '🏆';
-    title = '¡' + name + ', ERES UNA VERDADERA ' + (player.gender === 'girl' ? 'OCEANÓLOGA' : 'OCEANÓLOGO') + '!';
-    msg = '¡Increíble! Respondiste todo correctamente. Sabes más que un delfín listo 🐬. ¡Sigue así!';
-    if (player.gender === 'girl') msg += ' ¡Tus compañeros querrán tu ayuda!';
-    else msg += ' ¡Tus compañeros querrán tu ayuda!';
-    launchConfetti();
+    title = '¡' + name + ', ERES ' + (isGirl ? 'UNA OCEANÓLOGA INCREÍBLE' : 'UN OCEANÓLOGO INCREÍBLE') + '!';
+    msg = '🎉 ¡RESPUESTAS PERFECTAS! Sabes más que un delfín y nadas como un pez en los 5 océanos. ¡Eres ' + (isGirl ? 'una verdadera campeona' : 'un verdadero campeón') + ' del mar! 🌊✨';
+    tip = '🌟 Sigue así, el océano tiene miles de secretos más esperando por ti. ¡Nunca dejes de aprender!';
+    progressClass = 'perfect';
+    animalsRow = '🐬🐋🐙🦈🐠🐡';
   } else if (pct >= 75) {
     resultIcon = '🌟';
-    title = '¡MUY BIEN, ' + name + '!';
-    msg = 'Casi perfecto. Solo necesitas repasar un par de cositas y serás ' + (player.gender === 'girl' ? 'una experta' : 'un experto') + '. ¡Inténtalo de nuevo!';
-    launchConfetti();
+    title = '¡CASI PERFECTO, ' + name + '!';
+    msg = '🥳 ¡Excelente trabajo! Estás muy cerca ' + (isGirl ? 'de ser una experta' : 'de ser un experto') + ' en océanos. Solo te separan unos detalles de la gloria total.';
+    tip = '💡 Repasa los nombres y las características de cada océano y seguro que la próxima vez te llevas el trofeo. ¡Tú puedes! 💪';
+    progressClass = 'great';
+    animalsRow = '🐬🐙🐠🐋🦀';
   } else if (pct >= 50) {
     resultIcon = '🐙';
-    title = '¡VAS POR BUEN CAMINO, ' + name + '!';
-    msg = 'Tienes buena base pero necesitas estudiar un poco más. ¡Repasa los océanos y vuelve a intentarlo!';
+    title = '¡BUEN TRABAJO, ' + name + '!';
+    msg = '🌊 ¡Vas por muy buen camino! Sabes cosas importantes de los océanos y con un poco más de práctica llegarás lejísimos.';
+    tip = '📖 Repasa el libro de los 5 océanos, mira los mapas y vuelve a intentarlo. ¡Cada vez lo harás mejor! 🌟';
+    progressClass = '';
+    animalsRow = '🐠🐡🦑🐢🦀';
   } else {
     resultIcon = '📖';
-    title = '¡A ESTUDIAR UN POCO MÁS, ' + name + '!';
-    msg = 'No te preocupes, ' + name + ', con un poco de práctica lo lograrás. Revisa el libro de los 5 océanos y vuelve a intentarlo. ¡Tú puedes! 💪';
+    title = '¡SIGUE ASÍ, ' + name + '!';
+    msg = '💙 ¡No te rindas! Todos empezamos aprendiendo, y lo importante es que lo intentaste. Cada océano tiene su propia magia y tú estás descubriéndola.';
+    tip = '🌎 Empieza por aprender el nombre de los 5 océanos y dónde están en el mapa. Luego prueba el quiz de nuevo. ¡Te sorprenderás de lo rápido que mejoras! 🚀';
+    progressClass = '';
+    animalsRow = '🐢🦑🦀🐟🐋';
   }
 
   const oceanList = ['Pacífico', 'Atlántico', 'Índico', 'Ártico', 'Antártico'];
@@ -1356,16 +1303,36 @@ function showResults() {
 
   const container = document.getElementById('resultsContent');
   container.innerHTML = `
-    <div class="result-icon">${resultIcon}</div>
-    <h2>${title}</h2>
-    <div class="score-big">${score}/${total}</div>
-    <div style="font-size:1.1em;opacity:0.8;margin:4px 0 12px;">${pct}% de aciertos</div>
-    <div class="result-msg">${msg}</div>
-    <div style="margin:12px 0;font-size:0.9em;opacity:0.7;">Los 5 océanos del mundo:<br>${oceanBadges}</div>
-    <div class="text-center" style="margin-top:18px;">
-      <button class="btn-primary" onclick="restartQuiz()">🌊 ¡OTRA VEZ, ${name}!</button>
-      <br><br>
-      <button class="btn-secondary" onclick="resetAll()">🏠 Volver al inicio</button>
+    <div style="animation:pop 0.5s ease">
+      <div class="result-icon">${resultIcon}</div>
+      <h2>${title}</h2>
+      <div class="score-big">${score}/${total}</div>
+      <div style="font-size:1.2em;opacity:0.8;margin:4px 0 8px;">${pct}% de aciertos</div>
+
+      <div class="result-progress-container">
+        <div class="result-progress-bar ${progressClass}" id="resultProgressBar" style="width:${pct}%"></div>
+      </div>
+
+      <div class="result-animal-grid">${animalsRow}</div>
+
+      <div class="result-msg">${msg}</div>
+
+      <div class="result-tip">
+        <span class="tip-icon">💡</span> ${tip}
+      </div>
+
+      <div style="margin:12px 0;font-size:0.9em;opacity:0.7;">
+        Los 5 océanos del mundo:<br>${oceanBadges}
+      </div>
+
+      <div class="text-center" style="margin-top:20px;">
+        <button class="btn-primary continue-btn" onclick="restartQuiz()" style="font-size:1.2em;padding:16px 40px;">
+          🌊 ¡OTRA VEZ, ${name}!
+        </button>
+        <div style="margin-top:10px;">
+          <button class="btn-secondary" onclick="resetAll()">🏠 Volver al inicio</button>
+        </div>
+      </div>
     </div>
   `;
 
