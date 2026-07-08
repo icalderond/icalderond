@@ -1,0 +1,294 @@
+{
+  "personal_information": {
+    "full_name": "Israel Calderón de la Cruz",
+    "professional_title": ".NET Mobile Developer",
+    "location": {
+      "city": "Montemorelos",
+      "state": "Nuevo León",
+      "country": "Mexico"
+    },
+    "contact": {
+      "phone": "+52 (867) 2301608",
+      "email": "icalderond@outlook.com",
+      "linkedin": "https://www.linkedin.com/in/icalderond",
+      "website": "https://icalderond.github.io"
+    }
+  },
+  "professional_summary": {
+    "current": "I am a .NET Mobile Developer focused on building and maintaining reliable mobile applications within the Microsoft ecosystem. My work emphasizes clean architecture, maintainable code, and efficient collaboration with cross-functional teams to deliver high-quality software. I actively integrate AI-assisted development using Windsurf, leveraging structured prompts to support implementation tasks, improve productivity, and review Pull Requests with a strong focus on code quality and maintainability. My workflow includes working with multiple development and product collaboration platforms, including Azure DevOps, Figma, and Confluence, which I use as MCP tools to support the development lifecycle. Through these platforms, I review design specifications, create and refine Product Backlog Items (PBIs), document technical solutions, and align implementation details with product and design requirements. I am comfortable translating product ideas into technical solutions by analyzing requirements, reviewing design files, documenting architecture decisions, and collaborating across engineering and product teams to deliver mobile features efficiently. My goal is to continuously improve development workflows by combining modern engineering practices with AI-assisted tooling while building scalable mobile solutions in the .NET ecosystem."
+  },
+  "experience": [
+    {
+      "company": "Atos",
+      "position": "Xamarin Mobile Developer",
+      "location": "Monterrey, Nuevo León, Mexico",
+      "start_date": "2021-11",
+      "end_date": null,
+      "current": true,
+      "responsibilities": [
+        "Designed and implemented reusable, high-performance custom controls to enhance UI consistency and maintainability across the main application.",
+        "Developed and integrated complete application workflows, ensuring smooth navigation, data handling, and seamless interaction within the core platform.",
+        "Collaborated with cross-functional teams to align technical solutions with business requirements, leveraging .NET MAUI capabilities for cross-platform development.",
+        "Applied best practices in code structure, performance optimization, and maintainability to ensure scalable and future-proof application features.",
+        "Used Windsurf and GitHub Copilot to accelerate development in JetBrains Rider with .NET MAUI projects.",
+        "Implemented MCP integrations connected to Atlassian, Azure DevOps, and Figma to optimize workflows and cross-disciplinary collaboration.",
+        "Created and refined prompts for repetitive tasks using Generative AI in Windsurf.",
+        "Used models such as GPT-4.1 and Gemini to improve productivity, code quality, and delivery times."
+      ],
+      "technologies": [
+        ".NET MAUI",
+        "Xamarin",
+        "C#",
+        "Windsurf",
+        "GitHub Copilot",
+        "JetBrains Rider",
+        "Azure DevOps",
+        "Atlassian",
+        "Figma",
+        "MCP",
+        "Generative AI",
+        "GPT-4.1",
+        "Gemini"
+      ]
+    },
+    {
+      "company": "Enroute",
+      "position": "Xamarin Developer",
+      "location": "Monterrey, Nuevo León, Mexico",
+      "start_date": "2021-07",
+      "end_date": "2021-10",
+      "current": false,
+      "responsibilities": [
+        "Collaborated on adding new modules to a UWP application.",
+        "Implemented the Syncfusion library to improve application screens."
+      ],
+      "technologies": [
+        "Xamarin",
+        "UWP",
+        "Syncfusion",
+        "C#",
+        ".NET"
+      ]
+    },
+    {
+      "company": "Soft/M",
+      "position": "Senior Xamarin Developer",
+      "location": "Monterrey, Nuevo León, Mexico",
+      "start_date": "2020-08",
+      "end_date": "2021-09",
+      "current": false,
+      "responsibilities": [
+        "Built a Xamarin.Forms application from scratch for the healthcare sector.",
+        "Implemented the complete UI based on InVision designs.",
+        "Integrated Google services.",
+        "Implemented analytics functionality.",
+        "Implemented push notifications.",
+        "Implemented authentication functionality.",
+        "Consumed APIs to retrieve and display medical laboratory results.",
+        "Created custom controls to display medical laboratory results."
+      ],
+      "technologies": [
+        "Xamarin.Forms",
+        "C#",
+        ".NET",
+        "REST APIs",
+        "Google Services",
+        "Analytics",
+        "Push Notifications",
+        "Authentication",
+        "InVision"
+      ]
+    },
+    {
+      "company": "Quarksoft",
+      "position": "Xamarin Mobile Developer",
+      "location": "Mexico City, Mexico",
+      "start_date": "2019-06",
+      "end_date": "2020-06",
+      "current": false,
+      "responsibilities": [
+        "Built modules for a mobile application used to register gas station failures.",
+        "Implemented functionality to register installed and uninstalled gas station equipment.",
+        "Analyzed technical documentation to implement mobile application functionality.",
+        "Created Detail-Level Design documents to describe technical requirements and component implementations.",
+        "Designed styles to adapt application modules to the enterprise visual identity.",
+        "Consumed and modified REST APIs connected to a .NET server.",
+        "Created and customized mobile controls.",
+        "Implemented custom maps to display routes for attending gas station service requests."
+      ],
+      "technologies": [
+        "Git",
+        "TFS",
+        ".NET",
+        "Xamarin.Forms",
+        "REST APIs",
+        "Maps",
+        "Push Notifications",
+        "SQLite"
+      ]
+    },
+    {
+      "company": "Herbalife Nutrition - Independent Distributor",
+      "position": "Xamarin Mobile Developer",
+      "location": "Guadalajara, Jalisco, Mexico",
+      "start_date": "2018-07",
+      "end_date": "2019-06",
+      "current": false,
+      "responsibilities": [
+        "Collaborated in the development of backend modules for different applications.",
+        "Built an iOS and Android application using Xamarin.Forms.",
+        "Integrated multiple application layers including Web APIs and data models."
+      ],
+      "technologies": [
+        "Xamarin.Forms",
+        "C#",
+        ".NET",
+        "iOS",
+        "Android",
+        "Web API",
+        "REST APIs"
+      ]
+    },
+    {
+      "company": "Ermilo E. Richer Forwarding Agency",
+      "location": "Nuevo Laredo, Tamaulipas, Mexico",
+      "start_date": "2014-06",
+      "end_date": "2018-07",
+      "current": false,
+      "positions": [
+        {
+          "position": "Software Developer and Computer Support",
+          "start_date": "2014-11",
+          "end_date": "2018-07"
+        },
+        {
+          "position": "Junior Software Developer - Internship",
+          "start_date": "2014-06",
+          "end_date": "2014-10"
+        }
+      ],
+      "responsibilities": [
+        "Designed, built, and supported internal mobile, desktop, and web applications.",
+        "Developed software solutions using C# and VB.NET.",
+        "Developed web applications using ASP.NET MVC 4.",
+        "Developed and maintained internal mobile applications.",
+        "Provided computer and technical support to internal users.",
+        "Learned and analyzed freight forwarding business processes.",
+        "Analyzed existing database structures and application code.",
+        "Maintained and supported existing internal software solutions."
+      ],
+      "technologies": [
+        "C#",
+        "VB.NET",
+        ".NET",
+        "ASP.NET",
+        "ASP.NET MVC 4",
+        "Mobile Development",
+        "Desktop Development",
+        "Web Development",
+        "Databases"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Instituto Tecnológico de Nuevo Laredo",
+      "degree": "Computer Systems Engineering",
+      "original_degree": "Ingeniería en Sistemas Computacionales",
+      "specialization": "Mobile Devices",
+      "original_specialization": "Especialidad en Dispositivos Móviles",
+      "additional_focus": "Information Technology Project Management",
+      "start_year": 2010,
+      "end_year": 2014
+    }
+  ],
+  "skills": {
+    "primary": [
+      ".NET MAUI",
+      "Xamarin",
+      "Xamarin.Forms",
+      "C#",
+      ".NET"
+    ],
+    "mobile_platforms": [
+      "Android",
+      "iOS",
+      "UWP"
+    ],
+    "architecture_and_development": [
+      "Clean Architecture",
+      "Custom Controls",
+      "Cross-platform Development",
+      "REST API Integration",
+      "Push Notifications",
+      "Authentication",
+      "SQLite",
+      "Maps"
+    ],
+    "development_tools": [
+      "Git",
+      "TFS",
+      "JetBrains Rider",
+      "Azure DevOps",
+      "GitHub Copilot",
+      "Windsurf"
+    ],
+    "collaboration_and_product_tools": [
+      "Figma",
+      "Confluence",
+      "Atlassian",
+      "Azure DevOps"
+    ],
+    "ai_assisted_development": [
+      "Windsurf",
+      "GitHub Copilot",
+      "Prompt Engineering",
+      "Generative AI",
+      "GPT-4.1",
+      "Gemini",
+      "MCP Integrations"
+    ]
+  },
+  "languages": [
+    {
+      "language": "Spanish",
+      "proficiency": "Native or Bilingual"
+    },
+    {
+      "language": "English",
+      "proficiency": "Professional Working"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "discover-drive",
+      "issuer": null,
+      "date": null
+    }
+  ],
+  "honors_and_awards": [
+    {
+      "title": "Recognition for teaching the workshop Object-Oriented Programming in C# .NET"
+    },
+    {
+      "title": "Recognition for teaching the workshop Application Development with XAML"
+    },
+    {
+      "title": "Recognition for teaching the workshop Android Development with Xamarin Studio and C# 6"
+    }
+  ],
+  "cv_metadata": {
+    "profile_source": "LinkedIn PDF export",
+    "primary_specialization": ".NET Mobile Development",
+    "career_start_year": 2014,
+    "primary_profile": "Senior Mobile Developer",
+    "main_technology_evolution": [
+      "C# and .NET",
+      "ASP.NET MVC",
+      "Xamarin",
+      "Xamarin.Forms",
+      ".NET MAUI",
+      "AI-assisted software development"
+    ]
+  }
+}
