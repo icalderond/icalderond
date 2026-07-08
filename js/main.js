@@ -38,10 +38,6 @@ const i18n = {
     'exp.teach2.date': '2015 — Present',
     'exp.teach2.title': 'Xamarin.Android Instructor',
     'exp.teach2.desc': 'Teaching Android development with Xamarin Studio and C# — app fundamentals, UI elements, and deployment.',
-    'exp.teach3.date': '2015 — Present',
-    'exp.teach3.title': 'Volunteer Photographer',
-    'exp.teach3.company': 'Street Store Nuevo Laredo',
-    'exp.teach3.desc': 'Supporting people in need by providing clothing, food, and services — capturing the mission through photography.',
     'edu.title': 'Education',
     'edu.degree': 'B.S. Computer Engineering',
     'edu.course1': 'Specialization in Mobile Devices',
@@ -101,7 +97,6 @@ const i18n = {
     'cv.teach1.b1': 'Teach OOP with C#, WPF with MVVM pattern, XAML, and data binding at annual symposiums.',
     'cv.teach1.b2': 'Instructor for \u201CAndroid with Xamarin Studio and C#\u201D workshop (2016) \u2014 teaching Android app fundamentals, UI design, and deployment.',
     'cv.teach1.b3': 'Delivered workshops on XAML application development (2015) and OOP in C# (2013).',
-    'cv.teach3.b1': 'Document through photography the mission of providing clothing, food, health services, legal counsel, and psychological support to people in need.',
     'cv.edu.title': 'Education',
     'cv.courses.title': 'Relevant Courses'
   },
@@ -144,10 +139,6 @@ const i18n = {
     'exp.teach2.date': '2015 — Presente',
     'exp.teach2.title': 'Instructor Xamarin.Android',
     'exp.teach2.desc': 'Enseñando desarrollo Android con Xamarin Studio y C# — fundamentos de apps, elementos UI y despliegue.',
-    'exp.teach3.date': '2015 — Presente',
-    'exp.teach3.title': 'Fotógrafo Voluntario',
-    'exp.teach3.company': 'Street Store Nuevo Laredo',
-    'exp.teach3.desc': 'Apoyando a personas necesitadas con ropa, comida y servicios — capturando la misión a través de la fotografía.',
     'edu.title': 'Educación',
     'edu.degree': 'Ing. Sistemas Computacionales',
     'edu.course1': 'Especialidad en Dispositivos Móviles',
@@ -207,7 +198,6 @@ const i18n = {
     'cv.teach1.b1': 'Ense\u00f1o POO con C#, WPF con MVVM, XAML y data binding en simposiums anuales.',
     'cv.teach1.b2': 'Instructor del taller \u201CAndroid con Xamarin Studio y C#\u201D (2016) \u2014 fundamentos de apps Android, dise\u00f1o UI y despliegue.',
     'cv.teach1.b3': 'Impart\u00ed talleres de desarrollo de aplicaciones con XAML (2015) y POO en C# (2013).',
-    'cv.teach3.b1': 'Documento a trav\u00e9s de la fotograf\u00eda la misi\u00f3n de proveer ropa, comida, servicios de salud, asesor\u00eda legal y apoyo psicol\u00f3gico a personas necesitadas.',
     'cv.edu.title': 'Educaci\u00f3n',
     'cv.courses.title': 'Cursos Relacionados'
   }
